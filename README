@@ -1,0 +1,8 @@
+ironruby-json - a port of Florian Frank's json/ext library for IronRuby
+===============================================================================
+
+This is a port of Florian Frank's native json library for the MRI to IronRuby. 
+
+Want to help or contribute? Drop me a mail to suppakilla@gmail.com
+
+NOTE: this is still a work in progress, see the TODO for more information
