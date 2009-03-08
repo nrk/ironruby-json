@@ -162,7 +162,7 @@ namespace IronRuby.Libraries.Json {
         
         private static void LoadJSON____Ext__Parser_Instance(IronRuby.Builtins.RubyModule/*!*/ module) {
             module.DefineLibraryMethod("parse", 0x11, 
-                new System.Func<IronRuby.Runtime.RespondToStorage, IronRuby.Runtime.UnaryOpStorage, IronRuby.Runtime.BinaryOpStorage, IronRuby.Runtime.RubyContext, IronRuby.Libraries.Json.Parser, System.Object>(IronRuby.Libraries.Json.JSON.Ext.ParserOps.Parse)
+                new System.Func<IronRuby.Runtime.RespondToStorage, IronRuby.Runtime.UnaryOpStorage, IronRuby.Runtime.BinaryOpStorage, IronRuby.Runtime.SetBacktraceStorage, IronRuby.Runtime.RubyContext, IronRuby.Libraries.Json.Parser, System.Object>(IronRuby.Libraries.Json.JSON.Ext.ParserOps.Parse)
             );
             
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using IronRuby.Builtins;
 using IronRuby.Runtime;
+using IronRuby.Runtime.Calls;
 using Microsoft.Scripting;
 using Microsoft.Scripting.Runtime;
 
@@ -25,7 +26,7 @@ namespace IronRuby.Libraries.Json {
 
         public static MutableString ToJson(RubyContext context, Object o, params Object[] args) {
             // TODO: move this, creating toJsonCallSite every time is unnecessary.
-            ToJsonStateCallSite toJsonCallSite = ToJsonStateCallSite.Create(RubySites.InstanceCallAction("to_json"));
+            ToJsonStateCallSite toJsonCallSite = ToJsonStateCallSite.Create(RubyCallAction.Make("to_json", 0));
             return toJsonCallSite.Target(toJsonCallSite, context, o, args[0] as GeneratorState, (int)args[1]);
         }
 

@@ -22,8 +22,9 @@ namespace IronRuby.Libraries.Json {
                 }
 
                 [RubyMethod("parse")]
-                public static Object Parse(RespondToStorage/*!*/ respondToStorage, UnaryOpStorage/*!*/ unaryOpStorage, 
-                    BinaryOpStorage/*!*/ binaryOpStorage, RubyContext/*!*/ context, Parser/*!*/ self) {
+                public static Object Parse(RespondToStorage/*!*/ respondToStorage, UnaryOpStorage/*!*/ unaryOpStorage,
+                    BinaryOpStorage/*!*/ binaryOpStorage, SetBacktraceStorage/*!*/ setBacktraceStorage, 
+                    RubyContext/*!*/ context, Parser/*!*/ self) {
 
                     // TODO: exceptions are thrown without a backtrace and message string. I still need to better 
                     //       understand how to cleanly throw exceptions in mixed scenarios like this one, where the 
@@ -35,12 +36,12 @@ namespace IronRuby.Libraries.Json {
                         return self.Parse(context);
                     }
                     catch (JsonParserException ex) {
-                        KernelOps.RaiseException(respondToStorage, unaryOpStorage, binaryOpStorage, context, self, 
-                            self.ParserError, ex.Message, null);
+                        KernelOps.RaiseException(respondToStorage, unaryOpStorage, binaryOpStorage, setBacktraceStorage, 
+                            context, self, self.ParserError, ex.Message, null);
                     }
                     catch (JsonNestingException ex) {
-                        KernelOps.RaiseException(respondToStorage, unaryOpStorage, binaryOpStorage, context, self, 
-                            self.NestingError, ex.Message, null);
+                        KernelOps.RaiseException(respondToStorage, unaryOpStorage, binaryOpStorage, setBacktraceStorage, 
+                            context, self, self.NestingError, ex.Message, null);
                     }
 
                     return null;

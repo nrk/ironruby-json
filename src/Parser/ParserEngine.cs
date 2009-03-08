@@ -41,8 +41,8 @@ namespace IronRuby.Libraries.Json {
 
         #region callsites 
 
-        private static readonly JSONCreatableCallSite _jsonCreatableCallSite = JSONCreatableCallSite.Create(RubySites.InstanceCallAction("json_creatable?"));
-        private static readonly JSONCreateCallSite _jsonCreateCallSite = JSONCreateCallSite.Create(RubySites.InstanceCallAction("json_create"));
+        private static readonly JSONCreatableCallSite _jsonCreatableCallSite = JSONCreatableCallSite.Create(RubyCallAction.Make("json_creatable?", 0));
+        private static readonly JSONCreateCallSite _jsonCreateCallSite = JSONCreateCallSite.Create(RubyCallAction.Make("json_create", 0));
         private static readonly RespondToStorage _respondToStorage = new RespondToStorage();
 
         #endregion

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using IronRuby.Builtins;
 using IronRuby.Runtime;
+using IronRuby.Runtime.Calls;
 using Microsoft.Scripting;
 using Microsoft.Scripting.Runtime;
 
@@ -22,7 +23,7 @@ namespace IronRuby.Libraries.Json {
 
         private static readonly Dictionary<String, SymbolId> _generatorStateKeyMappings;
 
-        private static readonly ExceptionCreateCallSite _exceptionCreateCallSite = ExceptionCreateCallSite.Create(RubySites.InstanceCallAction("new"));
+        private static readonly ExceptionCreateCallSite _exceptionCreateCallSite = ExceptionCreateCallSite.Create(RubyCallAction.Make("new", 0));
 
         #endregion
 
@@ -72,7 +73,7 @@ namespace IronRuby.Libraries.Json {
         public static MutableString GetCreateId(RubyContext context) {
             RubyModule jsonModule = context.LookupName(context.TopGlobalScope, SymbolTable.StringToId("JSON")) as RubyModule;
             // TODO: move this, creating createIdCallSite every time is unnecessary.
-            CreateIdCallSite createIdCallSite = CreateIdCallSite.Create(RubySites.InstanceCallAction("create_id"));
+            CreateIdCallSite createIdCallSite = CreateIdCallSite.Create(RubyCallAction.Make("create_id", 0));
             return createIdCallSite.Target.Invoke(createIdCallSite, context, jsonModule) as MutableString;
         }
 
