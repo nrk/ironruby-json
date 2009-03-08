@@ -24,30 +24,30 @@ namespace IronRuby.Libraries.Json {
 
         #region Object
 
-        public static MutableString ToJson(RubyContext context, Object o, params Object[] args) {
+        public static MutableString ToJson(RubyContext context, Object self, params Object[] args) {
             // TODO: move this, creating toJsonCallSite every time is unnecessary.
             ToJsonStateCallSite toJsonCallSite = ToJsonStateCallSite.Create(RubyCallAction.Make("to_json", 0));
-            return toJsonCallSite.Target(toJsonCallSite, context, o, args[0] as GeneratorState, (int)args[1]);
+            return toJsonCallSite.Target(toJsonCallSite, context, self, args[0] as GeneratorState, (int)args[1]);
         }
 
         #endregion
 
         #region RubyArray
 
-        public static MutableString ToJson(RubyContext context, RubyArray a, GeneratorState state, int? depth) {
+        public static MutableString ToJson(RubyContext context, RubyArray self, GeneratorState state, int? depth) {
             MutableString result;
 
             if (state == null) {
-                result = MutableString.CreateMutable(2 + Math.Max(a.Count * 4, 0));
+                result = MutableString.CreateMutable(2 + Math.Max(self.Count * 4, 0));
                 // TODO: inherits flags?
                 result.Append('[');
 
-                if (a.Count > 0) {
-                    for (int i = 0; i < a.Count; i++) {
-                        result.Append(Generator.ToJson(context, a[i], null, 0));
-                        Helpers.InheritsFlags(context, result, a);
+                if (self.Count > 0) {
+                    for (int i = 0; i < self.Count; i++) {
+                        result.Append(Generator.ToJson(context, self[i], null, 0));
+                        Helpers.InheritsFlags(context, result, self);
                         // TODO: inherits flags?
-                        if (i < a.Count - 1) {
+                        if (i < self.Count - 1) {
                             result.Append(',');
                         }
                     }
@@ -56,7 +56,7 @@ namespace IronRuby.Libraries.Json {
                 result.Append(']');
             }
             else {
-                result = Transform(context, a, state, depth.HasValue ? depth.Value : 0);
+                result = Transform(context, self, state, depth.HasValue ? depth.Value : 0);
             }
 
             // TODO: inherits flags?
@@ -245,9 +245,9 @@ namespace IronRuby.Libraries.Json {
 
         #region MutableString
 
-        public static MutableString ToJson(MutableString s) {
-            MutableString result = MutableString.CreateBinary(s.Length + 2);
-            char[] chars = Encoding.UTF8.GetChars(s.ToByteArray());
+        public static MutableString ToJson(MutableString self) {
+            MutableString result = MutableString.CreateBinary(self.Length + 2);
+            char[] chars = Encoding.UTF8.GetChars(self.ToByteArray());
             byte[] escapeSequence = new byte[] { (byte)'\\', 0 };
 
             result.Append('"');
@@ -318,21 +318,21 @@ namespace IronRuby.Libraries.Json {
 
         #region Int32
 
-        public static MutableString ToJson(Int32 i) {
-            return MutableString.Create(i.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
+        public static MutableString ToJson(Int32 self) {
+            return MutableString.Create(self.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
         }
 
         #endregion
 
         #region Double
 
-        public static MutableString ToJson(Double d) {
-            if (Double.IsInfinity(d) || Double.IsNaN(d)) {
+        public static MutableString ToJson(Double self) {
+            if (Double.IsInfinity(self) || Double.IsNaN(self)) {
                 // TODO: need impl
-                return MutableString.Create(d.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
+                return MutableString.Create(self.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
             }
             else {
-                return MutableString.Create(d.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
+                return MutableString.Create(self.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
             }
         }
 
@@ -340,8 +340,8 @@ namespace IronRuby.Libraries.Json {
 
         #region Boolean
 
-        public static MutableString ToJson(Boolean b) {
-            return MutableString.Create(b ? JSON_TRUE : JSON_FALSE);
+        public static MutableString ToJson(Boolean self) {
+            return MutableString.Create(self ? JSON_TRUE : JSON_FALSE);
         }
 
         #endregion
