@@ -38,7 +38,7 @@ namespace IronRuby.Libraries.Json {
             MutableString result;
 
             if (state == null) {
-                result = MutableString.CreateMutable(2 + Math.Max(self.Count * 4, 0));
+                result = MutableString.CreateMutable(2 + Math.Max(self.Count * 4, 0), RubyEncoding.Default);
                 // TODO: inherits flags?
                 result.Append('[');
 
@@ -64,7 +64,7 @@ namespace IronRuby.Libraries.Json {
         }
 
         private static MutableString Transform(RubyContext context, RubyArray self, GeneratorState state, int depth) {
-            MutableString result = MutableString.CreateMutable(2 + Math.Max(self.Count * 4, 0));
+            MutableString result = MutableString.CreateMutable(2 + Math.Max(self.Count * 4, 0), RubyEncoding.Default);
 
             byte[] indentUnit = state.Indent.ToByteArray();
             byte[] shift = Helpers.Repeat(indentUnit, depth + 1);
@@ -150,7 +150,7 @@ namespace IronRuby.Libraries.Json {
             MutableString result;
 
             if (state == null) {
-                result = MutableString.CreateMutable(2 + Math.Max(self.Count * 12, 0));
+                result = MutableString.CreateMutable(2 + Math.Max(self.Count * 12, 0), RubyEncoding.Default);
                 result.Append('{');
 
                 if (self.Count > 0) {

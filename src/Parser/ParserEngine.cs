@@ -1098,8 +1098,7 @@ namespace IronRuby.Libraries.Json {
         #region json_string_unescape
 
         static Object UnescapeJsonString(String source, ref int p, ref int pe) {
-            MutableString result = MutableString.CreateMutable(pe - p + 1);
-            result.Encoding = Encoding.UTF8;
+            MutableString result = MutableString.CreateMutable(pe - p + 1, RubyEncoding.UTF8);
 
             while (p < pe) {
                 if (source[p] == '\\') {
