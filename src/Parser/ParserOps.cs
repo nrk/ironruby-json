@@ -9,16 +9,17 @@ using Microsoft.Scripting;
 using Microsoft.Scripting.Runtime;
 
 namespace IronRuby.Libraries.Json {
+    using SetBacktraceStorage = CallSiteStorage<Action<CallSite, Exception, RubyArray>>;
+
     public static partial class JSON {
         public static partial class Ext {
-
             [RubyClass("Parser", Extends = typeof(Parser))]
             public class ParserOps {
 
                 [RubyConstructor]
-                public static Parser CreateParser(RubyScope/*!*/ scope, RubyClass/*!*/ self, MutableString/*!*/ source, 
-                    [DefaultParameterValue(null)]Hash options) {
-                    return new Parser(scope, source, options != null ? options : new Hash(scope.RubyContext));
+                public static Parser CreateParser(RespondToStorage/*!*/ respondToStorage, RubyScope/*!*/ scope, 
+                    RubyClass/*!*/ self, MutableString/*!*/ source, [DefaultParameterValue(null)]Hash options) {
+                    return new Parser(scope, respondToStorage, source, options != null ? options : new Hash(scope.RubyContext));
                 }
 
                 [RubyMethod("parse")]
@@ -37,11 +38,11 @@ namespace IronRuby.Libraries.Json {
                     }
                     catch (JsonParserException ex) {
                         KernelOps.RaiseException(respondToStorage, unaryOpStorage, binaryOpStorage, setBacktraceStorage, 
-                            context, self, self.ParserError, ex.Message, null);
+                            self, self.ParserError, ex.Message, null);
                     }
                     catch (JsonNestingException ex) {
                         KernelOps.RaiseException(respondToStorage, unaryOpStorage, binaryOpStorage, setBacktraceStorage, 
-                            context, self, self.NestingError, ex.Message, null);
+                            self, self.NestingError, ex.Message, null);
                     }
 
                     return null;

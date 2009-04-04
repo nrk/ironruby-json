@@ -26,6 +26,7 @@ namespace IronRuby.Libraries.Json {
 
         private ParserEngineState _json;
 
+        private RespondToStorage _respondToStorage;
         private RubyModule _eParserError;
         private RubyModule _eNestingError;
 
@@ -40,12 +41,12 @@ namespace IronRuby.Libraries.Json {
 
         #region constructor 
 
-        public Parser(RubyScope scope, MutableString source)
-            : this(scope, source, new Hash(scope.RubyContext)) { }
+        public Parser(RubyScope scope, RespondToStorage respondToStorage, MutableString source)
+            : this(scope, respondToStorage, source, new Hash(scope.RubyContext)) { }
 
 
-        public Parser(RubyScope scope, MutableString source, Hash options) {
-            InitializeLibrary(scope);
+        public Parser(RubyScope scope, RespondToStorage respondToStorage, MutableString source, Hash options) {
+            InitializeLibrary(scope, respondToStorage);
 
             _json = ParserEngine.InitializeState(this, source);
 
@@ -75,7 +76,7 @@ namespace IronRuby.Libraries.Json {
 
         #region methods 
 
-        public void InitializeLibrary(RubyScope scope) { 
+        public void InitializeLibrary(RubyScope scope, RespondToStorage respondToStorage) { 
             KernelOps.Require(scope, this, MutableString.Create("json/common"));
 
             bool loadParseError = scope.RubyContext.TryGetModule(scope.GlobalScope, "JSON::ParserError", out _eParserError);
@@ -84,6 +85,8 @@ namespace IronRuby.Libraries.Json {
                 // TODO: I am going to change this. Seriously.
                 throw RubyExceptions.CreateNameError("Missing JSON::ParserError and/or JSON::NestingError");
             }
+
+            _respondToStorage = respondToStorage;
         }
 
         public Object Parse(RubyContext/*!*/ context) {
@@ -102,6 +105,10 @@ namespace IronRuby.Libraries.Json {
 
         public RubyModule NestingError {
             get { return _eNestingError; }
+        }
+
+        public RespondToStorage RespondToStorage {
+            get { return _respondToStorage; }
         }
 
         #endregion

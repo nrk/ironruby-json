@@ -41,9 +41,8 @@ namespace IronRuby.Libraries.Json {
 
         #region callsites 
 
-        private static readonly JSONCreatableCallSite _jsonCreatableCallSite = JSONCreatableCallSite.Create(RubyCallAction.Make("json_creatable?", 0));
-        private static readonly JSONCreateCallSite _jsonCreateCallSite = JSONCreateCallSite.Create(RubyCallAction.Make("json_create", 0));
-        private static readonly RespondToStorage _respondToStorage = new RespondToStorage();
+        private static readonly JSONCreatableCallSite _jsonCreatableCallSite = JSONCreatableCallSite.Create(RubyCallAction.MakeShared("json_creatable?", RubyCallSignature.Simple(0)));
+        private static readonly JSONCreateCallSite _jsonCreateCallSite = JSONCreateCallSite.Create(RubyCallAction.MakeShared("json_create", RubyCallSignature.Simple(0)));
 
         #endregion
 
@@ -267,7 +266,7 @@ namespace IronRuby.Libraries.Json {
                             throw RubyExceptions.CreateNameError(className.ToString());
                         }
                         else {
-                            if (Protocols.RespondTo(_respondToStorage, json.context, classClass, "json_creatable?")) {
+                            if (Protocols.RespondTo(json.parser.RespondToStorage, classClass, "json_creatable?")) {
                                 bool creatable = _jsonCreatableCallSite.Target(_jsonCreatableCallSite, json.context, classClass);
                                 if (creatable) {
                                     result = _jsonCreateCallSite.Target(_jsonCreateCallSite, json.context, classClass, result);

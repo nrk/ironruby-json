@@ -19,6 +19,8 @@ namespace IronRuby.Libraries.Json {
         private static readonly MutableString JSON_TRUE = MutableString.Create("true");
         private static readonly MutableString JSON_FALSE = MutableString.Create("false");
 
+        private static readonly ToJsonStateCallSite toJsonCallSite = ToJsonStateCallSite.Create(RubyCallAction.MakeShared("to_json", RubyCallSignature.Simple(0)));
+
         #endregion
         
 
@@ -26,7 +28,7 @@ namespace IronRuby.Libraries.Json {
 
         public static MutableString ToJson(RubyContext context, Object self, params Object[] args) {
             // TODO: move this, creating toJsonCallSite every time is unnecessary.
-            ToJsonStateCallSite toJsonCallSite = ToJsonStateCallSite.Create(RubyCallAction.Make("to_json", 0));
+            //ToJsonStateCallSite toJsonCallSite = ToJsonStateCallSite.Create(RubyCallAction.Make(context, "to_json", 0));
             return toJsonCallSite.Target(toJsonCallSite, context, self, args[0] as GeneratorState, (int)args[1]);
         }
 
