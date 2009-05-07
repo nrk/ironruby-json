@@ -9,7 +9,7 @@ using Microsoft.Scripting;
 using Microsoft.Scripting.Runtime;
 
 namespace IronRuby.Libraries.Json {
-    using ToJsonStateCallSite = CallSite<Func<CallSite, RubyContext, Object, GeneratorState, Int32, MutableString>>;
+    using ToJsonStateCallSite = CallSite<Func<CallSite, RubyContext, Object, GeneratorState, Int32, Object>>;
 
     public static class Generator {
 
@@ -19,7 +19,7 @@ namespace IronRuby.Libraries.Json {
         private static readonly MutableString JSON_TRUE = MutableString.Create("true");
         private static readonly MutableString JSON_FALSE = MutableString.Create("false");
 
-        private static readonly ToJsonStateCallSite toJsonCallSite = ToJsonStateCallSite.Create(RubyCallAction.MakeShared("to_json", RubyCallSignature.Simple(0)));
+        private static readonly ToJsonStateCallSite toJsonCallSite = ToJsonStateCallSite.Create(RubyCallAction.MakeShared("to_json", RubyCallSignature.Simple(2)));
 
         #endregion
         
@@ -27,9 +27,7 @@ namespace IronRuby.Libraries.Json {
         #region Object
 
         public static MutableString ToJson(RubyContext context, Object self, params Object[] args) {
-            // TODO: move this, creating toJsonCallSite every time is unnecessary.
-            //ToJsonStateCallSite toJsonCallSite = ToJsonStateCallSite.Create(RubyCallAction.Make(context, "to_json", 0));
-            return toJsonCallSite.Target(toJsonCallSite, context, self, args[0] as GeneratorState, (int)args[1]);
+            return toJsonCallSite.Target(toJsonCallSite, context, self, args[0] as GeneratorState, (int)args[1]) as MutableString;
         }
 
         #endregion
@@ -305,7 +303,7 @@ namespace IronRuby.Libraries.Json {
             }
 
             Hash result = new Hash(context);
-            result.Add(createId, MutableString.Create(RubyUtils.GetClassName(context, self)));
+            result.Add(createId, MutableString.Create(context.GetClassName(self)));
             result.Add(MutableString.Create("raw"), array);
 
             return result;

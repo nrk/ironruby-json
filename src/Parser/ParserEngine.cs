@@ -10,7 +10,7 @@ using IronRuby.Runtime;
 using IronRuby.Runtime.Calls;
 
 namespace IronRuby.Libraries.Json {
-    using JSONCreatableCallSite = CallSite<Func<CallSite, RubyContext, Object, Boolean>>;
+    using JSONCreatableCallSite = CallSite<Func<CallSite, RubyContext, Object, Object>>;
     using JSONCreateCallSite = CallSite<Func<CallSite, RubyContext, Object, Object, Object>>;
 
     static class ParserEngine {
@@ -267,7 +267,7 @@ namespace IronRuby.Libraries.Json {
                         }
                         else {
                             if (Protocols.RespondTo(json.parser.RespondToStorage, classClass, "json_creatable?")) {
-                                bool creatable = _jsonCreatableCallSite.Target(_jsonCreatableCallSite, json.context, classClass);
+                                bool creatable = (bool) _jsonCreatableCallSite.Target(_jsonCreatableCallSite, json.context, classClass);
                                 if (creatable) {
                                     result = _jsonCreateCallSite.Target(_jsonCreateCallSite, json.context, classClass, result);
                                 }
