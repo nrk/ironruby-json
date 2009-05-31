@@ -1225,7 +1225,7 @@ namespace IronRuby.Libraries.Json {
             int cs = EVIL;
 
             //result = rb_str_new("", 0);
-            result = MutableString.Empty;
+            result = MutableString.CreateEmpty();
 
             #region ** ragel generated code **
 

@@ -34,11 +34,11 @@ namespace IronRuby.Libraries.Json {
         #region constructor 
 
         public GeneratorState() {
-            _indent = MutableString.Empty;
-            _space = MutableString.Empty;
-            _spaceBefore = MutableString.Empty;
-            _objectNl = MutableString.Empty;
-            _arrayNl = MutableString.Empty;
+            _indent = MutableString.CreateEmpty();
+            _space = MutableString.CreateEmpty();
+            _spaceBefore = MutableString.CreateEmpty();
+            _objectNl = MutableString.CreateEmpty();
+            _arrayNl = MutableString.CreateEmpty();
 
             _seen = new List<int>();
 
