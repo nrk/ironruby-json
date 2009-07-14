@@ -10,15 +10,15 @@ namespace IronRuby.Libraries.Json {
             ExtendClass(typeof(IronRuby.Builtins.MutableString), null, LoadIronRuby__Builtins__MutableString_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             ExtendClass(typeof(IronRuby.Builtins.RubyArray), null, LoadIronRuby__Builtins__RubyArray_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             ExtendClass(typeof(IronRuby.Builtins.TrueClass), null, LoadIronRuby__Builtins__TrueClass_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
-            IronRuby.Builtins.RubyModule def3 = DefineGlobalModule("JSON__", typeof(IronRuby.Libraries.Json.JSON), true, null, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
-            IronRuby.Builtins.RubyModule def4 = DefineModule("JSON__::Ext", typeof(IronRuby.Libraries.Json.JSON.Ext), true, null, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
-            IronRuby.Builtins.RubyModule def1 = DefineModule("JSON__::Ext::Generator", typeof(IronRuby.Libraries.Json.JSON.Ext.Generator), true, null, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
+            IronRuby.Builtins.RubyModule def3 = DefineGlobalModule("JSON__", typeof(IronRuby.Libraries.Json.JSON), 0x00000103, null, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
+            IronRuby.Builtins.RubyModule def4 = DefineModule("JSON__::Ext", typeof(IronRuby.Libraries.Json.JSON.Ext), 0x00000103, null, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
+            IronRuby.Builtins.RubyModule def1 = DefineModule("JSON__::Ext::Generator", typeof(IronRuby.Libraries.Json.JSON.Ext.Generator), 0x00000103, null, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             ExtendClass(typeof(Microsoft.Scripting.Runtime.DynamicNull), null, LoadMicrosoft__Scripting__Runtime__DynamicNull_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             ExtendClass(typeof(System.Double), null, LoadSystem__Double_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             ExtendClass(typeof(System.Int32), null, LoadSystem__Int32_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             ExtendClass(typeof(System.Object), null, LoadSystem__Object_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
-            IronRuby.Builtins.RubyClass def2 = DefineClass("JSON__::Ext::Generator::State", typeof(IronRuby.Libraries.Json.GeneratorState), false, Context.ObjectClass, LoadJSON____Ext__Generator__State_Instance, LoadJSON____Ext__Generator__State_Class, null, IronRuby.Builtins.RubyModule.EmptyArray);
-            IronRuby.Builtins.RubyClass def5 = DefineClass("JSON__::Ext::Parser", typeof(IronRuby.Libraries.Json.Parser), false, Context.ObjectClass, LoadJSON____Ext__Parser_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray, 
+            IronRuby.Builtins.RubyClass def2 = DefineClass("JSON__::Ext::Generator::State", typeof(IronRuby.Libraries.Json.GeneratorState), 0x00000003, Context.ObjectClass, LoadJSON____Ext__Generator__State_Instance, LoadJSON____Ext__Generator__State_Class, null, IronRuby.Builtins.RubyModule.EmptyArray);
+            IronRuby.Builtins.RubyClass def5 = DefineClass("JSON__::Ext::Parser", typeof(IronRuby.Libraries.Json.Parser), 0x00000003, Context.ObjectClass, LoadJSON____Ext__Parser_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray, 
                 new System.Func<IronRuby.Runtime.RespondToStorage, IronRuby.Runtime.RubyScope, IronRuby.Builtins.RubyClass, IronRuby.Builtins.MutableString, IronRuby.Builtins.Hash, IronRuby.Libraries.Json.Parser>(IronRuby.Libraries.Json.JSON.Ext.ParserOps.CreateParser)
             );
             def3.SetConstant("Ext", def4);

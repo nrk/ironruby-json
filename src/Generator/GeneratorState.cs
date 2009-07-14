@@ -22,7 +22,7 @@ namespace IronRuby.Libraries.Json {
         private MutableString _objectNl;
         private MutableString _arrayNl;
 
-        private List<int> _seen;
+        private List<long> _seen;
 
         private bool _checkCircular;
         private bool _allowNaN;
@@ -40,7 +40,7 @@ namespace IronRuby.Libraries.Json {
             _objectNl = MutableString.CreateEmpty();
             _arrayNl = MutableString.CreateEmpty();
 
-            _seen = new List<int>();
+            _seen = new List<long>();
 
             _checkCircular = true;
             _allowNaN = false;
@@ -124,7 +124,7 @@ namespace IronRuby.Libraries.Json {
         }
 
         public void Remember(RubyContext context, Object obj) {
-            int objectId = RubyUtils.GetObjectId(context, obj);
+            long objectId = RubyUtils.GetObjectId(context, obj);
             if (!_seen.Contains(objectId)) {
                 _seen.Add(objectId);
             }
