@@ -974,7 +974,7 @@ namespace IronRuby.Libraries.Json {
             if (json.max_nesting > 0 && json.current_nesting > json.max_nesting) {
                 Helpers.ThrowNestingException("nesting of {0:d} is to deep", json.current_nesting);
             }
-            result = new List<Object>();
+            result = new RubyArray();
 
             #region ** ragel generated code **
 
