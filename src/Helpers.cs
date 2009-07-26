@@ -12,6 +12,7 @@ using Microsoft.Scripting.Runtime;
 namespace IronRuby.Libraries.Json {
     using CreateIdCallSite = CallSite<Func<CallSite, RubyContext, Object, Object>>;
     using ExceptionCreateCallSite = CallSite<Func<CallSite, RubyContext, Object, MutableString, Exception>>;
+    using SetBacktraceStorage = CallSiteStorage<Action<CallSite, Exception, RubyArray>>;
 
     public static class Helpers {
         #region static fields
@@ -86,11 +87,11 @@ namespace IronRuby.Libraries.Json {
         }
 
         public static void ThrowCircularDataStructureException(String message, params Object[] args) {
-            throw new JsonCircularDatastructureException(String.Format(message, args));
+            throw new JSON.CircularDatastructureException(String.Format(message, args));
         }
 
         public static void ThrowGenerateException(String message, params Object[] args) {
-            throw new JsonGenerateException(String.Format(message, args));
+            throw new JSON.GenerateException(String.Format(message, args));
         }
 
         #endregion
@@ -115,11 +116,11 @@ namespace IronRuby.Libraries.Json {
         }
 
         public static void ThrowNestingException(String message, params Object[] args) {
-            throw new JsonNestingException(String.Format(message, args));
+            throw new JSON.NestingException(String.Format(message, args));
         }
 
         public static void ThrowParserException(String message, params Object[] args) {
-            throw new JsonParserException(String.Format(message, args));
+            throw new JSON.ParserException(String.Format(message, args));
         }
 
         public static String GetMessageForException(String source, int p, int pe) {
@@ -131,5 +132,21 @@ namespace IronRuby.Libraries.Json {
         }
 
         #endregion
+
+        private static RubyModule GetModule(RubyScope scope, String className)  {
+            RubyModule module;
+            if (!scope.RubyContext.TryGetModule(scope.GlobalScope, className, out module)) {
+                throw RubyExceptions.CreateNameError(className);
+            }
+            return module;
+        }
+
+        public static void Exception(Exception exception, RespondToStorage/*!*/ respondToStorage, 
+            UnaryOpStorage/*!*/ unaryOpStorage, BinaryOpStorage/*!*/ binaryOpStorage, 
+            SetBacktraceStorage/*!*/ setBacktraceStorage, RubyScope/*!*/ scope, Object self) {
+
+            KernelOps.RaiseException(respondToStorage, unaryOpStorage, binaryOpStorage, setBacktraceStorage,
+                self, exception, MutableString.Create(exception.Message), null);
+        }
     }
 }

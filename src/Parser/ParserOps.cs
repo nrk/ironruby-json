@@ -36,13 +36,8 @@ namespace IronRuby.Libraries.Json {
                     try {
                         return self.Parse(scope);
                     }
-                    catch (JsonParserException ex) {
-                        KernelOps.RaiseException(respondToStorage, unaryOpStorage, binaryOpStorage, setBacktraceStorage, 
-                            self, self.ParserError, ex.Message, null);
-                    }
-                    catch (JsonNestingException ex) {
-                        KernelOps.RaiseException(respondToStorage, unaryOpStorage, binaryOpStorage, setBacktraceStorage, 
-                            self, self.NestingError, ex.Message, null);
+                    catch (JSON.ParserException ex) {
+                        Helpers.Exception(ex, respondToStorage, unaryOpStorage, binaryOpStorage, setBacktraceStorage, scope, self);
                     }
 
                     return null;

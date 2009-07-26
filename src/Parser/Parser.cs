@@ -27,10 +27,6 @@ namespace IronRuby.Libraries.Json {
         private ParserEngineState _json;
 
         private RespondToStorage _respondToStorage;
-        private RubyModule _eParserError;
-        private RubyModule _eNestingError;
-        private RubyModule _eGenerateError;
-        private RubyModule _eCircularDataError;
 
         #endregion
 
@@ -81,19 +77,6 @@ namespace IronRuby.Libraries.Json {
         public void InitializeLibrary(RubyScope scope, RespondToStorage respondToStorage) { 
             KernelOps.Require(scope, this, MutableString.Create("json/common"));
 
-            if (!scope.RubyContext.TryGetModule(scope.GlobalScope, "JSON::ParserError", out _eParserError)) {
-                throw RubyExceptions.CreateNameError("JSON::ParserError");
-            }
-            if (!scope.RubyContext.TryGetModule(scope.GlobalScope, "JSON::NestingError", out _eNestingError)) {
-                throw RubyExceptions.CreateNameError("JSON::NestingError");
-            }
-            if (!scope.RubyContext.TryGetModule(scope.GlobalScope, "JSON::GeneratorError", out _eGenerateError)) {
-                throw RubyExceptions.CreateNameError("JSON::GeneratorError");
-            }
-            if (!scope.RubyContext.TryGetModule(scope.GlobalScope, "JSON::CircularDatastructure", out _eCircularDataError)) {
-                throw RubyExceptions.CreateNameError("JSON::CircularDatastructure");
-            }
-
             _respondToStorage = respondToStorage;
         }
 
@@ -107,22 +90,6 @@ namespace IronRuby.Libraries.Json {
         #endregion
 
         #region properties
-
-        public RubyModule ParserError {
-            get { return _eParserError; }
-        }
-
-        public RubyModule NestingError {
-            get { return _eNestingError; }
-        }
-
-        public RubyModule GenerateError {
-            get { return _eGenerateError; }
-        }
-
-        public RubyModule CircularDataError {
-            get { return _eCircularDataError; }
-        }
 
         public RespondToStorage RespondToStorage {
             get { return _respondToStorage; }

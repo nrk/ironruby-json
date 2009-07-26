@@ -11,34 +11,63 @@ using Microsoft.Scripting;
 using Microsoft.Scripting.Runtime;
 
 namespace IronRuby.Libraries.Json.Builtins {
+    using SetBacktraceStorage = CallSiteStorage<Action<CallSite, Exception, RubyArray>>;
+
     [RubyClass(Extends = typeof(Object))]
     public static class ObjectOps {
         [RubyMethod("to_json")]
-        public static MutableString ToJson(RubyContext context, Object self, [Optional]GeneratorState state, [Optional]Int32 depth) {
-            return Generator.ToJson(context, self, state, depth);
+        public static MutableString ToJson(RespondToStorage/*!*/ respondToStorage, UnaryOpStorage/*!*/ unaryOpStorage,
+            BinaryOpStorage/*!*/ binaryOpStorage, SetBacktraceStorage/*!*/ setBacktraceStorage, RubyScope/*!*/ scope, 
+            Object self, [Optional]GeneratorState state, [Optional]Int32 depth) {
+            
+            try {
+                return Generator.ToJson(scope.RubyContext, self, state, depth);
+            }
+            catch (JSON.GenerateException ex) {
+                Helpers.Exception(ex, respondToStorage, unaryOpStorage, binaryOpStorage, setBacktraceStorage, scope, self);
+            }
+            return null;
         }
     }
 
     [RubyClass(Extends = typeof(RubyArray))]
     public static class ArrayOps {
         [RubyMethod("to_json")]
-        public static MutableString ToJson(RubyContext context, RubyArray self, [Optional]GeneratorState state, [Optional]Int32 depth) {
-            return Generator.ToJson(context, self, state, depth);
+        public static MutableString ToJson(RespondToStorage/*!*/ respondToStorage, UnaryOpStorage/*!*/ unaryOpStorage,
+            BinaryOpStorage/*!*/ binaryOpStorage, SetBacktraceStorage/*!*/ setBacktraceStorage, RubyScope/*!*/ scope, 
+            RubyArray self, [Optional]GeneratorState state, [Optional]Int32 depth) {
+
+            try {
+                return Generator.ToJson(scope.RubyContext, self, state, depth);
+            }
+            catch (JSON.GenerateException ex) {
+                Helpers.Exception(ex, respondToStorage, unaryOpStorage, binaryOpStorage, setBacktraceStorage, scope, self);
+            }
+            return null;
         }
     }
 
     [RubyClass(Extends = typeof(Hash))]
     public static class HashOps {
         [RubyMethod("to_json")]
-        public static MutableString ToJson(ConversionStorage<MutableString> toS, Hash self, [Optional]GeneratorState state, [Optional]Int32 depth) {
-            return Generator.ToJson(toS, self, state, depth);
+        public static MutableString ToJson(ConversionStorage<MutableString> toS, RespondToStorage/*!*/ respondToStorage, 
+            UnaryOpStorage/*!*/ unaryOpStorage, BinaryOpStorage/*!*/ binaryOpStorage, SetBacktraceStorage/*!*/ setBacktraceStorage, 
+            RubyScope/*!*/ scope, Hash self, [Optional]GeneratorState state, [Optional]Int32 depth) {
+
+            try {
+                return Generator.ToJson(toS, self, state, depth);
+            }
+            catch (JSON.GenerateException ex) {
+                Helpers.Exception(ex, respondToStorage, unaryOpStorage, binaryOpStorage, setBacktraceStorage, scope, self);
+            }
+            return null;
         }
     }
 
     [RubyClass(Extends = typeof(MutableString))]
     public static class MutableStringOps {
         [RubyMethod("to_json")]
-        public static MutableString ToJson(RubyContext context, MutableString self, [Optional]GeneratorState state, [Optional]Int32 depth) {
+        public static MutableString ToJson(MutableString self, [Optional]GeneratorState state, [Optional]Int32 depth) {
             return Generator.ToJson(self);
         }
 
