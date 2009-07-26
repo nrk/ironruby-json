@@ -106,7 +106,12 @@ namespace IronRuby.Libraries.Json {
         }
 
         public static Object ToFloat(String str) {
-            return Double.Parse(str, System.Globalization.CultureInfo.InvariantCulture);
+            //NOTE: this terrible hack is for huge floats, e.g. 23456789012E666
+            double res;
+            if (!Double.TryParse(str, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out res)) {
+                return str.StartsWith("-") ? Double.NegativeInfinity : Double.PositiveInfinity;
+            }
+            return res;
         }
 
         public static void ThrowNestingException(String message, params Object[] args) {
