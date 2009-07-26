@@ -8,4 +8,12 @@ namespace IronRuby.Libraries.Json {
     class JsonParserException : Exception {
         public JsonParserException(String message) : base(message) { }
     }
+
+    class JsonGenerateException : Exception {
+        public JsonGenerateException(String message) : base(message) { }
+    }
+
+    class JsonCircularDatastructureException : Exception {
+        public JsonCircularDatastructureException(String message) : base(message) { }
+    }
 }

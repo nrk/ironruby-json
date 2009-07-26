@@ -12,6 +12,7 @@ namespace IronRuby.Libraries.Json {
         public Int32 current_nesting;
         public Boolean allow_nan;
         public RubyContext context;
+        public RubyScope scope;
         public Parser parser;
     }
 }

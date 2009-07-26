@@ -36,7 +36,7 @@ namespace IronRuby.Libraries.Json {
         
         private static void LoadIronRuby__Builtins__Hash_Instance(IronRuby.Builtins.RubyModule/*!*/ module) {
             module.DefineLibraryMethod("to_json", 0x11, 
-                new System.Func<IronRuby.Runtime.RubyContext, IronRuby.Builtins.Hash, IronRuby.Libraries.Json.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.Libraries.Json.Builtins.HashOps.ToJson)
+                new System.Func<IronRuby.Runtime.ConversionStorage<IronRuby.Builtins.MutableString>, IronRuby.Builtins.Hash, IronRuby.Libraries.Json.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.Libraries.Json.Builtins.HashOps.ToJson)
             );
             
         }
@@ -47,11 +47,11 @@ namespace IronRuby.Libraries.Json {
             );
             
             module.DefineLibraryMethod("to_json_raw", 0x11, 
-                new System.Func<IronRuby.Runtime.RubyContext, IronRuby.Builtins.MutableString, IronRuby.Builtins.MutableString>(IronRuby.Libraries.Json.Builtins.MutableStringOps.ToJsonRaw)
+                new System.Func<IronRuby.Runtime.RubyScope, IronRuby.Builtins.MutableString, IronRuby.Builtins.MutableString>(IronRuby.Libraries.Json.Builtins.MutableStringOps.ToJsonRaw)
             );
             
             module.DefineLibraryMethod("to_json_raw_object", 0x11, 
-                new System.Func<IronRuby.Runtime.RubyContext, IronRuby.Builtins.MutableString, IronRuby.Builtins.Hash>(IronRuby.Libraries.Json.Builtins.MutableStringOps.ToJsonRawObject)
+                new System.Func<IronRuby.Runtime.RubyScope, IronRuby.Builtins.MutableString, IronRuby.Builtins.Hash>(IronRuby.Libraries.Json.Builtins.MutableStringOps.ToJsonRawObject)
             );
             
         }
@@ -162,7 +162,7 @@ namespace IronRuby.Libraries.Json {
         
         private static void LoadJSON____Ext__Parser_Instance(IronRuby.Builtins.RubyModule/*!*/ module) {
             module.DefineLibraryMethod("parse", 0x11, 
-                new System.Func<IronRuby.Runtime.RespondToStorage, IronRuby.Runtime.UnaryOpStorage, IronRuby.Runtime.BinaryOpStorage, IronRuby.Runtime.CallSiteStorage<System.Action<System.Runtime.CompilerServices.CallSite, System.Exception, IronRuby.Builtins.RubyArray>>, IronRuby.Runtime.RubyContext, IronRuby.Libraries.Json.Parser, System.Object>(IronRuby.Libraries.Json.JSON.Ext.ParserOps.Parse)
+                new System.Func<IronRuby.Runtime.RespondToStorage, IronRuby.Runtime.UnaryOpStorage, IronRuby.Runtime.BinaryOpStorage, IronRuby.Runtime.CallSiteStorage<System.Action<System.Runtime.CompilerServices.CallSite, System.Exception, IronRuby.Builtins.RubyArray>>, IronRuby.Runtime.RubyScope, IronRuby.Libraries.Json.Parser, System.Object>(IronRuby.Libraries.Json.JSON.Ext.ParserOps.Parse)
             );
             
         }

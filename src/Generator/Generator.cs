@@ -88,7 +88,7 @@ namespace IronRuby.Libraries.Json {
                     for (int i = 0; i < self.Count; i++) {
                         Object element = self[i];
                         if (state.Seen(context, element)) {
-                            throw new Exception("circular data structures not supported!");
+                            Helpers.ThrowCircularDataStructureException("circular data structures not supported!");
                         }
 
                         // TODO: inherits flags?
@@ -146,8 +146,9 @@ namespace IronRuby.Libraries.Json {
 
         #region Hash
 
-        public static MutableString ToJson(RubyContext context, Hash self, GeneratorState state, int? depth) {
+        public static MutableString ToJson(ConversionStorage<MutableString> toS, Hash self, GeneratorState state, int? depth) {
             MutableString result;
+            RubyContext context = toS.Context;
 
             if (state == null) {
                 result = MutableString.CreateMutable(2 + Math.Max(self.Count * 12, 0), RubyEncoding.Default);
@@ -157,7 +158,7 @@ namespace IronRuby.Libraries.Json {
                     int i = 0;
                     foreach (KeyValuePair<Object, Object> kv in self) {
                         // TODO: added state and depth
-                        result.Append(Generator.ToJson(context, kv.Key, null, 0));
+                        result.Append(Generator.ToJson(context, Protocols.CastToString(toS, kv.Key), null, 0));
                         result.Append(':');
                         result.Append(Generator.ToJson(context, kv.Value, null, 0));
                         if (++i < self.Count) {
@@ -173,23 +174,22 @@ namespace IronRuby.Libraries.Json {
 
                 if (state.CheckCircular) {
                     if (state.Seen(context, self)) {
-                        // TODO: throw a more appropriate exception
-                        throw new Exception("circular data structures not supported!");
+                        Helpers.ThrowCircularDataStructureException("circular data structures not supported!");
                     }
 
                     state.Remember(context, self);
-                    result = Transform(context, self, state, depth.HasValue ? depth.Value : 0);
+                    result = Transform(toS, self, state, depth.HasValue ? depth.Value : 0);
                     state.Forget(context, self);
                 }
                 else {
-                    result = Transform(context, self, state, depth.HasValue ? depth.Value : 0);
+                    result = Transform(toS, self, state, depth.HasValue ? depth.Value : 0);
                 }
             }
 
             return result;
         }
 
-        private static MutableString Transform(RubyContext context, Hash self, GeneratorState state, int depth) {
+        private static MutableString Transform(ConversionStorage<MutableString> toS, Hash self, GeneratorState state, int depth) {
             byte[] objectNl = state.ObjectNl.ToByteArray();
             byte[] indent = Helpers.Repeat(state.Indent.ToByteArray(), depth + 1);
             byte[] spaceBefore = state.SpaceBefore.ToByteArray();
@@ -212,13 +212,13 @@ namespace IronRuby.Libraries.Json {
                         result.Append(indent);
                     }
 
-                    result.Append(Generator.ToJson(context, kv.Key, state, subDepth));
+                    result.Append(Generator.ToJson(toS.Context, Protocols.ConvertToString(toS, kv.Key), state, subDepth));
                     result.Append(spaceBefore);
                     result.Append((byte)':');
                     result.Append(space);
                     // TODO: inherits flags?
 
-                    result.Append(Generator.ToJson(context, kv.Value, state, subDepth));
+                    result.Append(Generator.ToJson(toS.Context, kv.Value, state, subDepth));
                     // TODO: inherits flags?
 
                     if (++i < self.Count) {
@@ -293,8 +293,9 @@ namespace IronRuby.Libraries.Json {
             return result;
         }
 
-        public static Hash ToJsonRawObject(RubyContext context, MutableString self) {
-            MutableString createId = Helpers.GetCreateId(context);
+        public static Hash ToJsonRawObject(RubyScope scope, MutableString self) {
+            RubyContext context = scope.RubyContext;
+            MutableString createId = Helpers.GetCreateId(scope);
 
             byte[] selfBuffer = self.ToByteArray();
             RubyArray array = new RubyArray(selfBuffer.Length);
@@ -309,9 +310,9 @@ namespace IronRuby.Libraries.Json {
             return result;
         }
 
-        public static MutableString ToJsonRaw(RubyContext context, MutableString self) {
-            Hash hash = ToJsonRawObject(context, self);
-            return ToJson(context, hash, null, 0);
+        public static MutableString ToJsonRaw(RubyScope scope, MutableString self) {
+            Hash hash = ToJsonRawObject(scope, self);
+            return ToJson(scope.RubyContext, hash, null, 0);
         }
 
         #endregion

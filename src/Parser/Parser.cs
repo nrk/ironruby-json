@@ -29,6 +29,8 @@ namespace IronRuby.Libraries.Json {
         private RespondToStorage _respondToStorage;
         private RubyModule _eParserError;
         private RubyModule _eNestingError;
+        private RubyModule _eGenerateError;
+        private RubyModule _eCircularDataError;
 
         #endregion
 
@@ -57,7 +59,7 @@ namespace IronRuby.Libraries.Json {
                 if (options.ContainsKey(_createAdditions)) {
                     if ((bool)options[_createAdditions] == true) {
                         //TODO: check needed, create_id could be TrueClass, FalseClass, NilClass or String
-                        MutableString createId = Helpers.GetCreateId(scope.RubyContext);
+                        MutableString createId = Helpers.GetCreateId(scope);
                         _json.create_id = createId;
                     }
                     else {
@@ -68,7 +70,7 @@ namespace IronRuby.Libraries.Json {
             else {
                 _json.max_nesting = JSON_MAX_NESTING;
                 _json.allow_nan = JSON_ALLOW_NAN;
-                _json.create_id = Helpers.GetCreateId(scope.RubyContext);
+                _json.create_id = Helpers.GetCreateId(scope);
             }
         }
 
@@ -79,18 +81,25 @@ namespace IronRuby.Libraries.Json {
         public void InitializeLibrary(RubyScope scope, RespondToStorage respondToStorage) { 
             KernelOps.Require(scope, this, MutableString.Create("json/common"));
 
-            bool loadParseError = scope.RubyContext.TryGetModule(scope.GlobalScope, "JSON::ParserError", out _eParserError);
-            bool loadNestingError = scope.RubyContext.TryGetModule(scope.GlobalScope, "JSON::NestingError", out _eNestingError);
-            if (!loadParseError || !loadNestingError) {
-                // TODO: I am going to change this. Seriously.
-                throw RubyExceptions.CreateNameError("Missing JSON::ParserError and/or JSON::NestingError");
+            if (!scope.RubyContext.TryGetModule(scope.GlobalScope, "JSON::ParserError", out _eParserError)) {
+                throw RubyExceptions.CreateNameError("JSON::ParserError");
+            }
+            if (!scope.RubyContext.TryGetModule(scope.GlobalScope, "JSON::NestingError", out _eNestingError)) {
+                throw RubyExceptions.CreateNameError("JSON::NestingError");
+            }
+            if (!scope.RubyContext.TryGetModule(scope.GlobalScope, "JSON::GeneratorError", out _eGenerateError)) {
+                throw RubyExceptions.CreateNameError("JSON::GeneratorError");
+            }
+            if (!scope.RubyContext.TryGetModule(scope.GlobalScope, "JSON::CircularDatastructure", out _eCircularDataError)) {
+                throw RubyExceptions.CreateNameError("JSON::CircularDatastructure");
             }
 
             _respondToStorage = respondToStorage;
         }
 
-        public Object Parse(RubyContext/*!*/ context) {
-            _json.context = context;
+        public Object Parse(RubyScope/*!*/ scope) {
+            _json.scope = scope;
+            _json.context = scope.RubyContext;
             Object result = ParserEngine.Parse(_json);
             return result;
         }
@@ -105,6 +114,14 @@ namespace IronRuby.Libraries.Json {
 
         public RubyModule NestingError {
             get { return _eNestingError; }
+        }
+
+        public RubyModule GenerateError {
+            get { return _eGenerateError; }
+        }
+
+        public RubyModule CircularDataError {
+            get { return _eCircularDataError; }
         }
 
         public RespondToStorage RespondToStorage {

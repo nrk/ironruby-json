@@ -23,6 +23,8 @@ namespace IronRuby.Libraries.Json {
 
         private static readonly Dictionary<String, SymbolId> _generatorStateKeyMappings;
 
+        private static readonly MutableString _jsonClass = MutableString.Create("json_class");
+
         #endregion
 
         #region static constructor
@@ -68,11 +70,10 @@ namespace IronRuby.Libraries.Json {
             return result;
         }
 
-        public static MutableString GetCreateId(RubyContext context) {
-            RubyModule jsonModule = context.LookupName(context.TopGlobalScope, SymbolTable.StringToId("JSON")) as RubyModule;
+        public static MutableString GetCreateId(RubyScope scope) {
             // TODO: move this, creating createIdCallSite every time is unnecessary.
             CreateIdCallSite createIdCallSite = CreateIdCallSite.Create(RubyCallAction.MakeShared("create_id", RubyCallSignature.Simple(0)));
-            return createIdCallSite.Target.Invoke(createIdCallSite, context, jsonModule) as MutableString;
+            return createIdCallSite.Target.Invoke(createIdCallSite, scope.RubyContext, scope.Parent.Module) as MutableString;
         }
 
         public static SymbolId GetGeneratorStateKey(String key) {
@@ -82,6 +83,14 @@ namespace IronRuby.Libraries.Json {
         public static void InheritsFlags(RubyContext context, Object target, Object inheritsFrom) {
             // TODO: need to FreezeObjectBy too?
             context.TaintObjectBy<Object>(target, inheritsFrom);
+        }
+
+        public static void ThrowCircularDataStructureException(String message, params Object[] args) {
+            throw new JsonCircularDatastructureException(String.Format(message, args));
+        }
+
+        public static void ThrowGenerateException(String message, params Object[] args) {
+            throw new JsonGenerateException(String.Format(message, args));
         }
 
         #endregion
@@ -110,6 +119,10 @@ namespace IronRuby.Libraries.Json {
 
         public static String GetMessageForException(String source, int p, int pe) {
             return source.Substring(p, Math.Min(20, pe - p));
+        }
+
+        public static bool IsJsonClass(Hash hash) {
+            return hash.Count > 1 && hash.ContainsKey(_jsonClass);
         }
 
         #endregion

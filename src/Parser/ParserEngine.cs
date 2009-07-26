@@ -256,21 +256,20 @@ namespace IronRuby.Libraries.Json {
             #endregion
 
             if (cs >= JSON_object_first_final) {
-                if (json.create_id != null) {
+                if (json.create_id != null && Helpers.IsJsonClass(result as Hash)) {
                     Object classNameT = (result as Hash)[json.create_id];
                     if (classNameT != null) {
+                        RubyModule classClass;
                         String className = (classNameT as MutableString).ToString();
-                        RubyModule classClass = json.context.LookupName(json.context.TopGlobalScope, SymbolTable.StringToId(className)) as RubyModule;
 
-                        if (classClass == null) {
-                            throw RubyExceptions.CreateNameError(className.ToString());
+                        if (!json.context.TryGetModule(json.scope.GlobalScope, className, out classClass)) {
+                            throw RubyExceptions.CreateNameError(classNameT as String);
                         }
-                        else {
-                            if (Protocols.RespondTo(json.parser.RespondToStorage, classClass, "json_creatable?")) {
-                                bool creatable = (bool) _jsonCreatableCallSite.Target(_jsonCreatableCallSite, json.context, classClass);
-                                if (creatable) {
-                                    result = _jsonCreateCallSite.Target(_jsonCreateCallSite, json.context, classClass, result);
-                                }
+
+                        if (Protocols.RespondTo(json.parser.RespondToStorage, classClass, "json_creatable?")) {
+                            bool creatable = (bool) _jsonCreatableCallSite.Target(_jsonCreatableCallSite, json.context, classClass);
+                            if (creatable) {
+                                result = _jsonCreateCallSite.Target(_jsonCreateCallSite, json.context, classClass, result);
                             }
                         }
                     }

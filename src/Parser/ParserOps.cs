@@ -25,7 +25,7 @@ namespace IronRuby.Libraries.Json {
                 [RubyMethod("parse")]
                 public static Object Parse(RespondToStorage/*!*/ respondToStorage, UnaryOpStorage/*!*/ unaryOpStorage,
                     BinaryOpStorage/*!*/ binaryOpStorage, SetBacktraceStorage/*!*/ setBacktraceStorage, 
-                    RubyContext/*!*/ context, Parser/*!*/ self) {
+                    RubyScope/*!*/ scope, Parser/*!*/ self) {
 
                     // TODO: exceptions are thrown without a backtrace and message string. I still need to better 
                     //       understand how to cleanly throw exceptions in mixed scenarios like this one, where the 
@@ -34,7 +34,7 @@ namespace IronRuby.Libraries.Json {
                     //       http://www.ruby-forum.com/topic/178446
 
                     try {
-                        return self.Parse(context);
+                        return self.Parse(scope);
                     }
                     catch (JsonParserException ex) {
                         KernelOps.RaiseException(respondToStorage, unaryOpStorage, binaryOpStorage, setBacktraceStorage, 

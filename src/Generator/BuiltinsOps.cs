@@ -30,8 +30,8 @@ namespace IronRuby.Libraries.Json.Builtins {
     [RubyClass(Extends = typeof(Hash))]
     public static class HashOps {
         [RubyMethod("to_json")]
-        public static MutableString ToJson(RubyContext context, Hash self, [Optional]GeneratorState state, [Optional]Int32 depth) {
-            return Generator.ToJson(context, self, state, depth);
+        public static MutableString ToJson(ConversionStorage<MutableString> toS, Hash self, [Optional]GeneratorState state, [Optional]Int32 depth) {
+            return Generator.ToJson(toS, self, state, depth);
         }
     }
 
@@ -43,13 +43,13 @@ namespace IronRuby.Libraries.Json.Builtins {
         }
 
         [RubyMethod("to_json_raw_object")]
-        public static Hash ToJsonRawObject(RubyContext context, MutableString self) {
-            return Generator.ToJsonRawObject(context, self);
+        public static Hash ToJsonRawObject(RubyScope scope, MutableString self) {
+            return Generator.ToJsonRawObject(scope, self);
         }
 
         [RubyMethod("to_json_raw")]
-        public static MutableString ToJsonRaw(RubyContext context, MutableString self) {
-            return Generator.ToJsonRaw(context, self);
+        public static MutableString ToJsonRaw(RubyScope scope, MutableString self) {
+            return Generator.ToJsonRaw(scope, self);
         }
     }
 
