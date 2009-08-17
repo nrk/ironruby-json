@@ -327,9 +327,14 @@ namespace IronRuby.Libraries.Json {
 
         #region Double
 
-        public static MutableString ToJson(Double self) {
+        public static MutableString ToJson(Double self, GeneratorState state) {
             if (Double.IsInfinity(self) || Double.IsNaN(self)) {
-                // TODO: need impl
+                if (state != null) {
+                    if (state.AllowNaN == false) {
+                        //TODO: self.ToString() is not correct
+                        Helpers.ThrowGenerateException(String.Format("{0} not allowed in JSON", self));
+                    }
+                }
                 return MutableString.CreateAscii(self.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
             }
             else {

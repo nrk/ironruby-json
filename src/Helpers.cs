@@ -75,7 +75,7 @@ namespace IronRuby.Libraries.Json {
         }
 
         public static SymbolId GetGeneratorStateKey(String key) {
-            return _generatorStateKeyMappings["indent"];
+            return _generatorStateKeyMappings[key];
         }
 
         public static void InheritsFlags(RubyContext context, Object target, Object inheritsFrom) {
