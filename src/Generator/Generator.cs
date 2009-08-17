@@ -15,9 +15,9 @@ namespace IronRuby.Libraries.Json {
 
         #region fields
 
-        private static readonly MutableString JSON_NULL = MutableString.Create("null");
-        private static readonly MutableString JSON_TRUE = MutableString.Create("true");
-        private static readonly MutableString JSON_FALSE = MutableString.Create("false");
+        private static readonly MutableString JSON_NULL = MutableString.CreateAscii("null");
+        private static readonly MutableString JSON_TRUE = MutableString.CreateAscii("true");
+        private static readonly MutableString JSON_FALSE = MutableString.CreateAscii("false");
 
         private static readonly ToJsonStateCallSite toJsonCallSite = ToJsonStateCallSite.Create(RubyCallAction.MakeShared("to_json", RubyCallSignature.Simple(2)));
 
@@ -304,8 +304,8 @@ namespace IronRuby.Libraries.Json {
             }
 
             Hash result = new Hash(context);
-            result.Add(createId, MutableString.Create(context.GetClassName(self)));
-            result.Add(MutableString.Create("raw"), array);
+            result.Add(createId, MutableString.Create(context.GetClassName(self), RubyEncoding.Binary));
+            result.Add(MutableString.CreateAscii("raw"), array);
 
             return result;
         }
@@ -320,7 +320,7 @@ namespace IronRuby.Libraries.Json {
         #region Int32
 
         public static MutableString ToJson(Int32 self) {
-            return MutableString.Create(self.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
+            return MutableString.CreateAscii(self.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
         }
 
         #endregion
@@ -330,10 +330,10 @@ namespace IronRuby.Libraries.Json {
         public static MutableString ToJson(Double self) {
             if (Double.IsInfinity(self) || Double.IsNaN(self)) {
                 // TODO: need impl
-                return MutableString.Create(self.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
+                return MutableString.CreateAscii(self.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
             }
             else {
-                return MutableString.Create(self.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
+                return MutableString.CreateAscii(self.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
             }
         }
 

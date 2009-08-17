@@ -75,7 +75,7 @@ namespace IronRuby.Libraries.Json {
         #region methods 
 
         public void InitializeLibrary(RubyScope scope, RespondToStorage respondToStorage) { 
-            KernelOps.Require(scope, this, MutableString.Create("json/common"));
+            KernelOps.Require(scope, this, MutableString.CreateAscii("json/common"));
 
             _respondToStorage = respondToStorage;
         }
