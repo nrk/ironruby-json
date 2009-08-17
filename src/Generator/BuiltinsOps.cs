@@ -94,7 +94,7 @@ namespace IronRuby.Libraries.Json.Builtins {
     public static class FloatOps {
         [RubyMethod("to_json")]
         public static MutableString ToJson(Double self, [Optional]GeneratorState state, [Optional]Int32 depth) {
-            return Generator.ToJson(self);
+            return Generator.ToJson(self, state);
         }
     }
 

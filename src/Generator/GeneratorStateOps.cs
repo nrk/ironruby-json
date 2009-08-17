@@ -25,7 +25,11 @@ namespace IronRuby.Libraries.Json {
 
                     [RubyMethod("new", RubyMethodAttributes.PublicSingleton)]
                     public static GeneratorState/*!*/ CreateGeneratorState(RubyClass/*!*/ self, [Optional]Hash configuration) {
-                        return new GeneratorState();
+                        GeneratorState state = new GeneratorState();
+                        if (configuration != null) {
+                            Reinitialize(state, configuration);
+                        }
+                        return state;
                     }
 
                     [RubyMethod("initialize", RubyMethodAttributes.PrivateInstance)]
@@ -87,10 +91,10 @@ namespace IronRuby.Libraries.Json {
                         }
 
                         if (source is Hash) {
-                            return CreateGeneratorState(context.ClassClass, source as Hash);
+                            return Reinitialize(new GeneratorState(), source as Hash);
                         }
 
-                        return CreateGeneratorState(context.ClassClass, null);
+                        return Reinitialize(new GeneratorState(), null);
                     }
 
                     #endregion
