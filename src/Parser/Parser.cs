@@ -78,8 +78,8 @@ namespace IronRuby.Libraries.Json {
 
         #region methods 
 
-        public void InitializeLibrary(RubyScope scope, RespondToStorage respondToStorage) { 
-            KernelOps.Require(scope, this, MutableString.Create("json/common"));
+        public void InitializeLibrary(RubyScope scope, RespondToStorage respondToStorage) {
+            KernelOps.Require(scope, this, MutableString.CreateAscii("json/common"));
 
             if (!scope.RubyContext.TryGetModule(scope.GlobalScope, "JSON::ParserError", out _eParserError)) {
                 throw RubyExceptions.CreateNameError("JSON::ParserError");

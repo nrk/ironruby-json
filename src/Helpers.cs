@@ -23,7 +23,7 @@ namespace IronRuby.Libraries.Json {
 
         private static readonly Dictionary<String, SymbolId> _generatorStateKeyMappings;
 
-        private static readonly MutableString _jsonClass = MutableString.Create("json_class");
+        private static readonly MutableString _jsonClass = MutableString.CreateAscii("json_class");
 
         #endregion
 
@@ -98,7 +98,7 @@ namespace IronRuby.Libraries.Json {
         #region parser helpers
 
         public static MutableString CreateMutableString(String value, int len) {
-            return MutableString.Create(value);
+            return MutableString.Create(value, RubyEncoding.Binary);
         }
 
         public static Object ToInteger(String str) {
