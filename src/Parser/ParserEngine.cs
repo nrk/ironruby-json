@@ -33,9 +33,9 @@ namespace IronRuby.Libraries.Json {
         private const Int32 DEFAULT_MAX_NESTING = 19;
 
         private const String JSON_MINUS_INFINITY = "-Infinity";
-        private const String CONSTANT_NAN = "NaN";
-        private const String CONSTANT_INFINITY = "Infinity";
-        private const String CONSTANT_MINUS_INFINITY = "MinusInfinity";
+        private const Double CONSTANT_NAN = Double.NaN;
+        private const Double CONSTANT_INFINITY = Double.PositiveInfinity;
+        private const Double CONSTANT_MINUS_INFINITY = Double.NegativeInfinity;
 
         #endregion
 
