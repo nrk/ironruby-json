@@ -71,9 +71,7 @@ namespace IronRuby.Libraries.Json {
         }
 
         public static MutableString GetCreateId(RubyScope scope) {
-            // TODO: move this, creating createIdCallSite every time is unnecessary.
-            CreateIdCallSite createIdCallSite = CreateIdCallSite.Create(RubyCallAction.MakeShared("create_id", RubyCallSignature.Simple(0)));
-            return createIdCallSite.Target.Invoke(createIdCallSite, scope.RubyContext, scope.Parent.Module) as MutableString;
+            return RubyOps.GetInstanceVariable(scope, GetModule(scope, "JSON"), "@create_id") as MutableString;
         }
 
         public static SymbolId GetGeneratorStateKey(String key) {
@@ -131,5 +129,13 @@ namespace IronRuby.Libraries.Json {
         }
 
         #endregion
+
+        private static RubyModule GetModule(RubyScope scope, String className)  {
+            RubyModule module;
+            if (!scope.RubyContext.TryGetModule(scope.GlobalScope, className, out module)) {
+                throw RubyExceptions.CreateNameError(className);
+            }
+            return module;
+        }
     }
 }
