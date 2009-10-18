@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Microsoft.Scripting;
+using Microsoft.Scripting.Utils;
 using Microsoft.Scripting.Runtime;
 using IronRuby.Builtins;
 using IronRuby.Runtime;
