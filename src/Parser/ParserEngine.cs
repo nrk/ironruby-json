@@ -263,7 +263,7 @@ namespace IronRuby.Libraries.Json {
                         RubyModule classClass;
                         String className = (classNameT as MutableString).ToString();
                         if (!json.context.TryGetModule(json.scope.GlobalScope, className, out classClass)) {
-                            throw new ArgumentException(className as String);
+                            throw RubyExceptions.CreateArgumentError(String.Format("can't find const {0}", className));
                         }
 
                         if (Protocols.RespondTo(json.parser.RespondToStorage, classClass, "json_creatable?")) {
@@ -467,7 +467,6 @@ namespace IronRuby.Libraries.Json {
                                     result = CONSTANT_NAN;
                                 }
                                 else {
-                                    //Helpers.RaiseRubyException(json.parser._eParserError, "unexpected token at '{0}'", source.Substring(p - 2, 20));
                                     Helpers.ThrowParserException("unexpected token at '{0}'", Helpers.GetMessageForException(source, p - 2, pe));
                                 }
                             }
@@ -477,7 +476,6 @@ namespace IronRuby.Libraries.Json {
                                     result = CONSTANT_INFINITY;
                                 }
                                 else {
-                                    //Helpers.RaiseRubyException(json.parser._eParserError, "unexpected token at '{0}'", source.Substring(p - 8, 20));
                                     Helpers.ThrowParserException("unexpected token at '{0}'", Helpers.GetMessageForException(source, p - 8, pe));
                                 }
                             }
@@ -495,7 +493,6 @@ namespace IronRuby.Libraries.Json {
                                         p--; { p++; if (true) goto _out; }
                                     }
                                     else {
-                                        //Helpers.RaiseRubyException(json.parser._eParserError, "unexpected token at '{0}'", source.Substring(p, 20));
                                         Helpers.ThrowParserException("unexpected token at '{0}'", Helpers.GetMessageForException(source, p, pe));
                                     }
                                 }

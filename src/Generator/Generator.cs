@@ -333,8 +333,7 @@ namespace IronRuby.Libraries.Json {
             if (Double.IsInfinity(self) || Double.IsNaN(self)) {
                 if (state != null) {
                     if (state.AllowNaN == false) {
-                        //TODO: self.ToString() is not correct
-                        throw new JSON.GenerateException(String.Format("{0} not allowed in JSON", self));
+                        Helpers.ThrowGenerateException(String.Format("{0} not allowed in JSON", self));
                     }
                 }
                 return MutableString.CreateAscii(self.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
