@@ -49,7 +49,20 @@ namespace IronRuby.Libraries.Json {
             _json = ParserEngine.InitializeState(this, source);
 
             if (options.Count > 0) {
-                _json.max_nesting = options.ContainsKey(_maxNesting) ? (int)(options[_maxNesting] ?? JSON_MAX_NESTING) : JSON_MAX_NESTING;
+                if (options.ContainsKey(_maxNesting)) {
+                    object maxNesting = options[_maxNesting];
+                    if (maxNesting is int) {
+                        _json.max_nesting = (int)maxNesting;
+                    }
+                    else {
+                        // TODO: verify the actual behaviour JSON::Parser when passing a 
+                        //       :max_nesting value different than false or nil.
+                        _json.max_nesting = Int32.MaxValue;
+                    }
+                }
+                else {
+                    _json.max_nesting = JSON_MAX_NESTING;
+                }
                 _json.allow_nan = options.ContainsKey(_allowNan) ? (bool)(options[_allowNan] ?? JSON_ALLOW_NAN) : JSON_ALLOW_NAN;
 
                 if (options.ContainsKey(_createAdditions)) {
