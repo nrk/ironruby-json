@@ -70,6 +70,14 @@ namespace IronRuby.Libraries.Json.Builtins {
         }
     }
 
+    [RubyClass(Extends = typeof(String))]
+    public static class ClrStringOps {
+        [RubyMethod("to_json")]
+        public static MutableString ToJson(String self, [Optional]GeneratorState state, [Optional]Int32 depth) {
+            return Generator.ToJson(MutableString.Create(self, RubyEncoding.Binary));
+        }
+    }
+
     [RubyClass(Extends = typeof(Int32))]
     public static class FixnumOps {
         [RubyMethod("to_json")]
