@@ -87,8 +87,7 @@ namespace IronRuby.Libraries.Json {
 
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("max_nesting"))) {
                 Object mn = configuration[Helpers.GetGeneratorStateKey("max_nesting")];
-                // TODO: need to inspect
-                self._maxNesting = (mn is Boolean && (bool)mn == false) ? 0 : (Int32)mn;
+                self._maxNesting = (mn is int) ? (int)mn : 0;
             }
 
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("allow_nan"))) {
