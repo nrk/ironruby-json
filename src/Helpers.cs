@@ -139,13 +139,5 @@ namespace IronRuby.Libraries.Json {
             }
             return module;
         }
-
-        public static void Exception(Exception exception, RespondToStorage/*!*/ respondToStorage, 
-            UnaryOpStorage/*!*/ unaryOpStorage, BinaryOpStorage/*!*/ binaryOpStorage, 
-            SetBacktraceStorage/*!*/ setBacktraceStorage, RubyScope/*!*/ scope, Object self) {
-
-            KernelOps.RaiseException(respondToStorage, unaryOpStorage, binaryOpStorage, setBacktraceStorage,
-                self, exception, MutableString.Create(exception.Message, RubyEncoding.Binary), null);
-        }
     }
 }
