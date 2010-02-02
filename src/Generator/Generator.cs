@@ -160,7 +160,7 @@ namespace IronRuby.Libraries.Json {
                     int i = 0;
                     foreach (KeyValuePair<Object, Object> kv in self) {
                         // TODO: added state and depth
-                        result.Append(Generator.ToJson(context, Protocols.CastToString(toS, kv.Key), null, 0));
+                        result.Append(Generator.ToJson(context, Protocols.ConvertToString(toS, kv.Key), null, 0));
                         result.Append(':');
                         result.Append(Generator.ToJson(context, kv.Value, null, 0));
                         if (++i < self.Count) {
