@@ -118,7 +118,7 @@ namespace IronRuby.Libraries.Json {
 
         public void CheckMaxNesting(int depth) {
             if (_maxNesting != 0 && depth > _maxNesting) {
-                throw new ArgumentException(String.Format("nesting of {0} is too deep", depth));
+                Helpers.ThrowNestingException("nesting of {0:d} is to deep", depth);
             }
         }
 
