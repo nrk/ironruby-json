@@ -32,6 +32,16 @@ namespace IronRuby.Libraries.Json.Builtins {
         }
     }
 
+    [RubyModule(Extends = typeof(IList))]
+    public static class IListOps {
+        [RubyMethod("to_json")]
+        public static MutableString ToJson(RubyScope/*!*/ scope, IList self,
+            [Optional]GeneratorState state, [Optional]Int32 depth) {
+
+            return Generator.ToJson(scope.RubyContext, self, state, depth);
+        }
+    }
+
     [RubyClass(Extends = typeof(Hash))]
     public static class HashOps {
         [RubyMethod("to_json")]

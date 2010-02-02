@@ -20,6 +20,7 @@ namespace IronRuby.Libraries.Json {
             IronRuby.Builtins.RubyModule def1 = DefineModule("JSON__::Ext::Generator", typeof(IronRuby.Libraries.Json.JSON.Ext.Generator), 0x00000008, null, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             IronRuby.Builtins.RubyClass def4 = DefineClass("JSON__::JSONError", typeof(IronRuby.Libraries.Json.JSON.BaseException), 0x00000008, classRef0, null, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             ExtendClass(typeof(Microsoft.Scripting.Runtime.DynamicNull), 0x00000000, null, LoadMicrosoft__Scripting__Runtime__DynamicNull_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
+            ExtendModule(typeof(System.Collections.IList), 0x00000000, LoadSystem__Collections__IList_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             ExtendClass(typeof(System.Double), 0x00000000, null, LoadSystem__Double_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             ExtendClass(typeof(System.Int32), 0x00000000, null, LoadSystem__Int32_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             ExtendClass(typeof(System.Object), 0x00000000, null, LoadSystem__Object_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
@@ -189,6 +190,13 @@ namespace IronRuby.Libraries.Json {
             
         }
         
+        private static void LoadSystem__Collections__IList_Instance(IronRuby.Builtins.RubyModule/*!*/ module) {
+            DefineLibraryMethod(module, "to_json", 0x11, 
+                new Func<IronRuby.Runtime.RubyScope, System.Collections.IList, IronRuby.Libraries.Json.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.Libraries.Json.Builtins.IListOps.ToJson)
+            );
+            
+        }
+        
         private static void LoadSystem__Double_Instance(IronRuby.Builtins.RubyModule/*!*/ module) {
             DefineLibraryMethod(module, "to_json", 0x11, 
                 new Func<System.Double, IronRuby.Libraries.Json.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.Libraries.Json.Builtins.FloatOps.ToJson)
@@ -205,7 +213,7 @@ namespace IronRuby.Libraries.Json {
         
         private static void LoadSystem__Object_Instance(IronRuby.Builtins.RubyModule/*!*/ module) {
             DefineLibraryMethod(module, "to_json", 0x11, 
-                new Func<IronRuby.Runtime.RubyScope, System.Object, IronRuby.Libraries.Json.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.Libraries.Json.Builtins.ObjectOps.ToJson)
+                new Func<IronRuby.Runtime.UnaryOpStorage, IronRuby.Runtime.ConversionStorage<IronRuby.Builtins.MutableString>, System.Object, IronRuby.Builtins.MutableString>(IronRuby.Libraries.Json.Builtins.ObjectOps.ToJson)
             );
             
         }

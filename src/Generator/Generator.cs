@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using IronRuby.Builtins;
@@ -33,9 +34,9 @@ namespace IronRuby.Libraries.Json {
 
         #endregion
 
-        #region RubyArray
+        #region RubyArray, IList
 
-        public static MutableString ToJson(RubyContext context, RubyArray self, GeneratorState state, int? depth) {
+        public static MutableString ToJson(RubyContext context, IList self, GeneratorState state, int? depth) {
             MutableString result;
 
             if (state == null) {
@@ -64,7 +65,7 @@ namespace IronRuby.Libraries.Json {
             return result;
         }
 
-        private static MutableString Transform(RubyContext context, RubyArray self, GeneratorState state, int depth) {
+        private static MutableString Transform(RubyContext context, IList self, GeneratorState state, int depth) {
             MutableString result = MutableString.CreateMutable(2 + Math.Max(self.Count * 4, 0), RubyEncoding.Default);
 
             byte[] indentUnit = state.Indent.ToByteArray();
