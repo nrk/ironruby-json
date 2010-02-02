@@ -95,6 +95,10 @@ namespace IronRuby.Libraries.Json {
             get { return _respondToStorage; }
         }
 
+        public Object Source {
+            get { return _json.source; }
+        }
+
         #endregion
     }
 }
