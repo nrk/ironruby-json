@@ -12,8 +12,6 @@ using Microsoft.Scripting.Utils;
 using Microsoft.Scripting.Runtime;
 
 namespace IronRuby.Libraries.Json.Builtins {
-    using SetBacktraceStorage = CallSiteStorage<Action<CallSite, Exception, RubyArray>>;
-
     [RubyClass(Extends = typeof(Object))]
     public static class ObjectOps {
         [RubyMethod("to_json")]
