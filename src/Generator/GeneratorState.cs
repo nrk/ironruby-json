@@ -53,8 +53,6 @@ namespace IronRuby.Libraries.Json {
         #region static methods
 
         public static void Configure(GeneratorState/*!*/ self, Hash/*!*/ configuration) {
-            // TODO: convert?
-
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("indent"))) {
                 self._indent = configuration[Helpers.GetGeneratorStateKey("indent")] as MutableString;
             }
@@ -77,12 +75,7 @@ namespace IronRuby.Libraries.Json {
 
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("check_circular"))) {
                 Object cc = configuration[Helpers.GetGeneratorStateKey("check_circular")];
-                if (cc is Boolean) {
-                    self._checkCircular = (bool)cc;
-                }
-                else {
-                    self._checkCircular = false;
-                }
+                self._checkCircular = cc is bool ? (bool)cc : false;
             }
 
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("max_nesting"))) {
@@ -92,12 +85,7 @@ namespace IronRuby.Libraries.Json {
 
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("allow_nan"))) {
                 Object an = configuration[Helpers.GetGeneratorStateKey("allow_nan")];
-                if (an is Boolean) {
-                    self._allowNaN = (bool)an;
-                }
-                else {
-                    self._allowNaN = false;
-                }
+                self._allowNaN = an is bool ? (bool)an : false;
             }
         }
 
