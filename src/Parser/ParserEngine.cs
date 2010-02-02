@@ -262,9 +262,8 @@ namespace IronRuby.Libraries.Json {
                     if (classNameT != null) {
                         RubyModule classClass;
                         String className = (classNameT as MutableString).ToString();
-
                         if (!json.context.TryGetModule(json.scope.GlobalScope, className, out classClass)) {
-                            throw RubyExceptions.CreateNameError(classNameT as String);
+                            throw new ArgumentException(className as String);
                         }
 
                         if (Protocols.RespondTo(json.parser.RespondToStorage, classClass, "json_creatable?")) {

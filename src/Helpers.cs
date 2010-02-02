@@ -127,7 +127,7 @@ namespace IronRuby.Libraries.Json {
         }
 
         public static bool IsJsonClass(Hash hash) {
-            return hash.Count > 1 && hash.ContainsKey(_jsonClass);
+            return hash.Count > 0 && hash.ContainsKey(_jsonClass);
         }
 
         #endregion
