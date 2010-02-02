@@ -12,13 +12,13 @@ namespace IronRuby.Libraries.Json {
     public class Parser {
         #region symbols
 
-        private static SymbolId _maxNesting = SymbolTable.StringToId("max_nesting");
-        private static SymbolId _allowNan = SymbolTable.StringToId("allow_nan");
-        private static SymbolId _jsonCreatable = SymbolTable.StringToId("json_creatable?");
-        private static SymbolId _jsonCreate = SymbolTable.StringToId("json_create");
-        private static SymbolId _createId = SymbolTable.StringToId("create_id");
-        private static SymbolId _createAdditions = SymbolTable.StringToId("create_additions");
-        private static SymbolId _chr = SymbolTable.StringToId("chr");
+        private static RubySymbol _maxNesting;
+        private static RubySymbol _allowNan;
+        private static RubySymbol _jsonCreatable;
+        private static RubySymbol _jsonCreate;
+        private static RubySymbol _createId;
+        private static RubySymbol _createAdditions;
+        private static RubySymbol _chr;
 
         #endregion
 
@@ -89,6 +89,14 @@ namespace IronRuby.Libraries.Json {
 
         public void InitializeLibrary(RubyScope scope, RespondToStorage respondToStorage) { 
             KernelOps.Require(scope, this, MutableString.CreateAscii("json/common"));
+
+            _maxNesting = scope.RubyContext.CreateAsciiSymbol("max_nesting");
+            _allowNan = scope.RubyContext.CreateAsciiSymbol("allow_nan");
+            _jsonCreatable = scope.RubyContext.CreateAsciiSymbol("json_creatable?");
+            _jsonCreate = scope.RubyContext.CreateAsciiSymbol("json_create");
+            _createId = scope.RubyContext.CreateAsciiSymbol("create_id");
+            _createAdditions = scope.RubyContext.CreateAsciiSymbol("create_additions");
+            _chr = scope.RubyContext.CreateAsciiSymbol("chr");
 
             _respondToStorage = respondToStorage;
         }

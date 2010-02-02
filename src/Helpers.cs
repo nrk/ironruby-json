@@ -23,7 +23,7 @@ namespace IronRuby.Libraries.Json {
                     (byte)'8', (byte)'9', (byte)'a', (byte)'b', (byte)'c', (byte)'d', (byte)'e', (byte)'f'
                 };
 
-        private static readonly Dictionary<String, SymbolId> _generatorStateKeyMappings;
+        private static Dictionary<String, RubySymbol> _generatorStateKeyMappings;
 
         private static readonly MutableString _jsonClass = MutableString.CreateAscii("json_class");
 
@@ -31,17 +31,20 @@ namespace IronRuby.Libraries.Json {
 
         #region static constructor
 
-        static Helpers() {
+        private static IDictionary<String, RubySymbol> InitializeGeneratorStateKey(RubyContext context) {
             // TODO: I do not really like how I implemented this...
-            _generatorStateKeyMappings = new Dictionary<String, SymbolId>();
-            _generatorStateKeyMappings.Add("indent", SymbolTable.StringToId("indent"));
-            _generatorStateKeyMappings.Add("space", SymbolTable.StringToId("space"));
-            _generatorStateKeyMappings.Add("space_before", SymbolTable.StringToId("space_before"));
-            _generatorStateKeyMappings.Add("array_nl", SymbolTable.StringToId("array_nl"));
-            _generatorStateKeyMappings.Add("object_nl", SymbolTable.StringToId("object_nl"));
-            _generatorStateKeyMappings.Add("check_circular", SymbolTable.StringToId("check_circular"));
-            _generatorStateKeyMappings.Add("max_nesting", SymbolTable.StringToId("max_nesting"));
-            _generatorStateKeyMappings.Add("allow_nan", SymbolTable.StringToId("allow_nan"));
+            if (_generatorStateKeyMappings == null) {
+                _generatorStateKeyMappings = new Dictionary<String, RubySymbol>();
+                _generatorStateKeyMappings.Add("indent", context.CreateAsciiSymbol("indent"));
+                _generatorStateKeyMappings.Add("space", context.CreateAsciiSymbol("space"));
+                _generatorStateKeyMappings.Add("space_before", context.CreateAsciiSymbol("space_before"));
+                _generatorStateKeyMappings.Add("array_nl", context.CreateAsciiSymbol("array_nl"));
+                _generatorStateKeyMappings.Add("object_nl", context.CreateAsciiSymbol("object_nl"));
+                _generatorStateKeyMappings.Add("check_circular", context.CreateAsciiSymbol("check_circular"));
+                _generatorStateKeyMappings.Add("max_nesting", context.CreateAsciiSymbol("max_nesting"));
+                _generatorStateKeyMappings.Add("allow_nan", context.CreateAsciiSymbol("allow_nan"));
+            }
+            return _generatorStateKeyMappings;
         }
 
         #endregion
@@ -76,8 +79,8 @@ namespace IronRuby.Libraries.Json {
             return RubyOps.GetInstanceVariable(scope, GetModule(scope, "JSON"), "@create_id") as MutableString;
         }
 
-        public static SymbolId GetGeneratorStateKey(String key) {
-            return _generatorStateKeyMappings[key];
+        public static RubySymbol GetGeneratorStateKey(RubyContext context, String key) {
+            return InitializeGeneratorStateKey(context)[key];
         }
 
         public static void InheritsFlags(RubyContext context, Object target, Object inheritsFrom) {

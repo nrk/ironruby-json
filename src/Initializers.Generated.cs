@@ -101,7 +101,7 @@ namespace IronRuby.Libraries.Json {
             );
             
             DefineLibraryMethod(module, "configure", 0x11, 
-                new Func<IronRuby.Libraries.Json.GeneratorState, IronRuby.Builtins.Hash, IronRuby.Libraries.Json.GeneratorState>(IronRuby.Libraries.Json.JSON.Ext.Generator.GeneratorStateOps.Reconfigure)
+                new Func<IronRuby.Runtime.RubyContext, IronRuby.Libraries.Json.GeneratorState, IronRuby.Builtins.Hash, IronRuby.Libraries.Json.GeneratorState>(IronRuby.Libraries.Json.JSON.Ext.Generator.GeneratorStateOps.Reconfigure)
             );
             
             DefineLibraryMethod(module, "forget", 0x11, 
@@ -117,7 +117,7 @@ namespace IronRuby.Libraries.Json {
             );
             
             DefineLibraryMethod(module, "initialize", 0x12, 
-                new Func<IronRuby.Libraries.Json.GeneratorState, IronRuby.Builtins.Hash, IronRuby.Libraries.Json.GeneratorState>(IronRuby.Libraries.Json.JSON.Ext.Generator.GeneratorStateOps.Reinitialize)
+                new Func<IronRuby.Runtime.RubyContext, IronRuby.Libraries.Json.GeneratorState, IronRuby.Builtins.Hash, IronRuby.Libraries.Json.GeneratorState>(IronRuby.Libraries.Json.JSON.Ext.Generator.GeneratorStateOps.Reinitialize)
             );
             
             DefineLibraryMethod(module, "max_nesting", 0x11, 

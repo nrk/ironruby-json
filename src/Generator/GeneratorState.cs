@@ -52,39 +52,39 @@ namespace IronRuby.Libraries.Json {
 
         #region static methods
 
-        public static void Configure(GeneratorState/*!*/ self, Hash/*!*/ configuration) {
-            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("indent"))) {
-                self._indent = configuration[Helpers.GetGeneratorStateKey("indent")] as MutableString;
+        public static void Configure(RubyContext/*!*/ context, GeneratorState/*!*/ self, Hash/*!*/ configuration) {
+            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "indent"))) {
+                self._indent = configuration[Helpers.GetGeneratorStateKey(context, "indent")] as MutableString;
             }
 
-            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("space"))) {
-                self._space = configuration[Helpers.GetGeneratorStateKey("space")] as MutableString;
+            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "space"))) {
+                self._space = configuration[Helpers.GetGeneratorStateKey(context, "space")] as MutableString;
             }
 
-            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("space_before"))) {
-                self._spaceBefore = configuration[Helpers.GetGeneratorStateKey("space_before")] as MutableString;
+            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "space_before"))) {
+                self._spaceBefore = configuration[Helpers.GetGeneratorStateKey(context, "space_before")] as MutableString;
             }
 
-            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("array_nl"))) {
-                self._arrayNl = configuration[Helpers.GetGeneratorStateKey("array_nl")] as MutableString;
+            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "array_nl"))) {
+                self._arrayNl = configuration[Helpers.GetGeneratorStateKey(context, "array_nl")] as MutableString;
             }
 
-            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("object_nl"))) {
-                self._objectNl = configuration[Helpers.GetGeneratorStateKey("object_nl")] as MutableString;
+            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "object_nl"))) {
+                self._objectNl = configuration[Helpers.GetGeneratorStateKey(context, "object_nl")] as MutableString;
             }
 
-            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("check_circular"))) {
-                Object cc = configuration[Helpers.GetGeneratorStateKey("check_circular")];
+            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "check_circular"))) {
+                Object cc = configuration[Helpers.GetGeneratorStateKey(context, "check_circular")];
                 self._checkCircular = cc is bool ? (bool)cc : false;
             }
 
-            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("max_nesting"))) {
-                Object mn = configuration[Helpers.GetGeneratorStateKey("max_nesting")];
+            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "max_nesting"))) {
+                Object mn = configuration[Helpers.GetGeneratorStateKey(context, "max_nesting")];
                 self._maxNesting = (mn is int) ? (int)mn : 0;
             }
 
-            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey("allow_nan"))) {
-                Object an = configuration[Helpers.GetGeneratorStateKey("allow_nan")];
+            if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "allow_nan"))) {
+                Object an = configuration[Helpers.GetGeneratorStateKey(context, "allow_nan")];
                 self._allowNaN = an is bool ? (bool)an : false;
             }
         }
