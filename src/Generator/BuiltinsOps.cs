@@ -52,6 +52,16 @@ namespace IronRuby.Libraries.Json.Builtins {
         }
     }
 
+    [RubyModule(Extends = typeof(IDictionary))]
+    public static class DictionaryOps {
+        [RubyMethod("to_json")]
+        public static MutableString ToJson(ConversionStorage<MutableString> toS, RubyScope/*!*/ scope,
+            IDictionary self, [Optional]GeneratorState state, [Optional]Int32 depth) {
+
+            return Generator.ToJson(toS, self, state, depth);
+        }
+    }
+
     [RubyClass(Extends = typeof(MutableString))]
     public static partial class MutableStringOps {
         [RubyMethod("to_json")]

@@ -148,7 +148,7 @@ namespace IronRuby.Libraries.Json {
 
         #region Hash
 
-        public static MutableString ToJson(ConversionStorage<MutableString> toS, Hash self, GeneratorState state, int? depth) {
+        public static MutableString ToJson(ConversionStorage<MutableString> toS, IDictionary self, GeneratorState state, int? depth) {
             MutableString result;
             RubyContext context = toS.Context;
 
@@ -158,7 +158,7 @@ namespace IronRuby.Libraries.Json {
 
                 if (self.Count > 0) {
                     int i = 0;
-                    foreach (KeyValuePair<Object, Object> kv in self) {
+                    foreach (DictionaryEntry kv in self) {
                         // TODO: added state and depth
                         result.Append(Generator.ToJson(context, Protocols.ConvertToString(toS, kv.Key), null, 0));
                         result.Append(':');
@@ -191,7 +191,7 @@ namespace IronRuby.Libraries.Json {
             return result;
         }
 
-        private static MutableString Transform(ConversionStorage<MutableString> toS, Hash self, GeneratorState state, int depth) {
+        private static MutableString Transform(ConversionStorage<MutableString> toS, IDictionary self, GeneratorState state, int depth) {
             byte[] objectNl = state.ObjectNl.ToByteArray();
             byte[] indent = Helpers.Repeat(state.Indent.ToByteArray(), depth + 1);
             byte[] spaceBefore = state.SpaceBefore.ToByteArray();
@@ -205,7 +205,7 @@ namespace IronRuby.Libraries.Json {
 
             if (self.Count > 0) {
                 int i = 0;
-                foreach (KeyValuePair<Object, Object> kv in self) {
+                foreach (DictionaryEntry kv in self) {
                     if (i > 0) {
                         result.Append(objectNl);
                     }
