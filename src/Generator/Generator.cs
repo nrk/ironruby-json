@@ -40,7 +40,7 @@ namespace IronRuby.Libraries.Json {
             MutableString result;
 
             if (state == null) {
-                result = MutableString.CreateMutable(2 + Math.Max(self.Count * 4, 0), RubyEncoding.Default);
+                result = MutableString.CreateMutable(2 + Math.Max(self.Count * 4, 0), RubyEncoding.UTF8);
                 // TODO: inherits flags?
                 result.Append('[');
 
@@ -66,7 +66,7 @@ namespace IronRuby.Libraries.Json {
         }
 
         private static MutableString Transform(RubyContext context, IList self, GeneratorState state, int depth) {
-            MutableString result = MutableString.CreateMutable(2 + Math.Max(self.Count * 4, 0), RubyEncoding.Default);
+            MutableString result = MutableString.CreateMutable(2 + Math.Max(self.Count * 4, 0), RubyEncoding.UTF8);
 
             byte[] indentUnit = state.Indent.ToByteArray();
             byte[] shift = Helpers.Repeat(indentUnit, depth + 1);
@@ -248,7 +248,7 @@ namespace IronRuby.Libraries.Json {
         #region MutableString
 
         public static MutableString ToJson(MutableString self) {
-            MutableString result = MutableString.CreateBinary(self.Length + 2);
+            MutableString result = MutableString.CreateMutable(self.Length + 2, RubyEncoding.UTF8);
             char[] chars = Encoding.UTF8.GetChars(self.ToByteArray());
             byte[] escapeSequence = new byte[] { (byte)'\\', 0 };
 
