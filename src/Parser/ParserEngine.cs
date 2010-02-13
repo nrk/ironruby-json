@@ -1093,65 +1093,9 @@ namespace IronRuby.Libraries.Json {
         #region json_string_unescape
 
         static Object UnescapeJsonString(String source, ref int p, ref int pe) {
-            MutableString result = MutableString.CreateMutable(pe - p + 1, RubyEncoding.UTF8);
-
-            while (p < pe) {
-                if (source[p] == '\\') {
-                    p++;
-                    if (p >= pe) return null; /* raise an exception later, \ at end */
-                    switch (source[p]) {
-                        case '"':
-                        case '\\':
-                            result.Append(source[p]);
-                            p++;
-                            break;
-                        case 'b':
-                            result.Append("\b");
-                            p++;
-                            break;
-                        case 'f':
-                            result.Append("\f");
-                            p++;
-                            break;
-                        case 'n':
-                            result.Append("\n");
-                            p++;
-                            break;
-                        case 'r':
-                            result.Append("\r");
-                            p++;
-                            break;
-                        case 't':
-                            result.Append("\t");
-                            p++;
-                            break;
-                        case 'u':
-                            if (p > pe - 4) {
-                                return null;
-                            }
-                            else {
-                                p++;
-                                // TODO: need to try Char.Parse()
-                                result.Append(((char) Int32.Parse(source.Substring(p, 4), System.Globalization.NumberStyles.HexNumber)));
-                                p += 4;
-                            }
-                            break;
-                        default:
-                            result.Append(source[p]);
-                            p++;
-                            break;
-                    }
-                }
-                else {
-                    int q = p;
-                    while (source[q] != '\\' && q < pe) { 
-                        q++; 
-                    }
-                    result.Append(source, p, q - p);
-                    p = q;
-                }
-            }
-            return result;
+            JsonStringUnescaper unescaper = new JsonStringUnescaper(source.ToCharArray(p, pe - p));
+            p = pe;
+            return unescaper.Unescape();
         }
 
         #endregion

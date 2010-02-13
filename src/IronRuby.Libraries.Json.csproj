@@ -41,6 +41,7 @@
     <Compile Include="Generator\BuiltinsOps.cs" />
     <Compile Include="Generator\Generator.cs" />
     <Compile Include="Initializers.Generated.cs" />
+    <Compile Include="JsonStringUnescaper.cs" />
     <Compile Include="ModuleHierarchy.cs" />
     <Compile Include="Parser\Exceptions.cs" />
     <Compile Include="Parser\Parser.cs" />
