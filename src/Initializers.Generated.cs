@@ -12,7 +12,7 @@ namespace IronRuby.Libraries.Json {
             
             ExtendClass(typeof(IronRuby.Builtins.FalseClass), 0x00000000, null, LoadIronRuby__Builtins__FalseClass_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             ExtendClass(typeof(IronRuby.Builtins.Hash), 0x00000000, null, LoadIronRuby__Builtins__Hash_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
-            ExtendClass(typeof(IronRuby.Builtins.MutableString), 0x00000000, null, LoadIronRuby__Builtins__MutableString_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
+            ExtendClass(typeof(IronRuby.Builtins.MutableString), 0x00000000, null, LoadIronRuby__Builtins__MutableString_Instance, LoadIronRuby__Builtins__MutableString_Class, null, IronRuby.Builtins.RubyModule.EmptyArray);
             ExtendClass(typeof(IronRuby.Builtins.RubyArray), 0x00000000, null, LoadIronRuby__Builtins__RubyArray_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             ExtendClass(typeof(IronRuby.Builtins.TrueClass), 0x00000000, null, LoadIronRuby__Builtins__TrueClass_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             IronRuby.Builtins.RubyModule def3 = DefineGlobalModule("JSON__", typeof(IronRuby.Libraries.Json.JSON), 0x00000008, null, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
@@ -69,6 +69,13 @@ namespace IronRuby.Libraries.Json {
             
             DefineLibraryMethod(module, "to_json_raw_object", 0x11, 
                 new Func<IronRuby.Runtime.RubyScope, IronRuby.Builtins.MutableString, IronRuby.Builtins.Hash>(IronRuby.Libraries.Json.Builtins.MutableStringOps.ToJsonRawObject)
+            );
+            
+        }
+        
+        private static void LoadIronRuby__Builtins__MutableString_Class(IronRuby.Builtins.RubyModule/*!*/ module) {
+            DefineLibraryMethod(module, "json_create", 0x21, 
+                new Func<IronRuby.Runtime.ConversionStorage<IronRuby.Runtime.IntegerValue>, IronRuby.Builtins.RubyClass, IronRuby.Builtins.Hash, IronRuby.Builtins.MutableString>(IronRuby.Libraries.Json.Builtins.MutableStringOps.JsonCreate)
             );
             
         }

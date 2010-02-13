@@ -43,6 +43,7 @@
     <Compile Include="Initializers.Generated.cs" />
     <Compile Include="JsonStringUnescaper.cs" />
     <Compile Include="ModuleHierarchy.cs" />
+    <Compile Include="Parser\BuiltinsOps.cs" />
     <Compile Include="Parser\Exceptions.cs" />
     <Compile Include="Parser\Parser.cs" />
     <Compile Include="Parser\ParserEngineState.cs" />
