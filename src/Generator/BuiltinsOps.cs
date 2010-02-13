@@ -15,10 +15,10 @@ namespace IronRuby.Libraries.Json.Builtins {
     [RubyClass(Extends = typeof(Object))]
     public static class ObjectOps {
         [RubyMethod("to_json")]
-        public static MutableString ToJson(UnaryOpStorage/*!*/ inspectStorage, 
-            ConversionStorage<MutableString>/*!*/ tosConversion, Object/*!*/ self) {
+        public static MutableString ToJson(ConversionStorage<MutableString>/*!*/ toS, 
+            Object/*!*/ self, [Optional]GeneratorState state, [Optional]Int32 depth) {
 
-            return Generator.ToJson(KernelOps.Inspect(inspectStorage, tosConversion, self));
+            return Generator.ToJson(Protocols.ConvertToString(toS, self));
         }
     }
 

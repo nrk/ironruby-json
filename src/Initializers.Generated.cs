@@ -229,7 +229,7 @@ namespace IronRuby.Libraries.Json {
         
         private static void LoadSystem__Object_Instance(IronRuby.Builtins.RubyModule/*!*/ module) {
             DefineLibraryMethod(module, "to_json", 0x11, 
-                new Func<IronRuby.Runtime.UnaryOpStorage, IronRuby.Runtime.ConversionStorage<IronRuby.Builtins.MutableString>, System.Object, IronRuby.Builtins.MutableString>(IronRuby.Libraries.Json.Builtins.ObjectOps.ToJson)
+                new Func<IronRuby.Runtime.ConversionStorage<IronRuby.Builtins.MutableString>, System.Object, IronRuby.Libraries.Json.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.Libraries.Json.Builtins.ObjectOps.ToJson)
             );
             
         }
