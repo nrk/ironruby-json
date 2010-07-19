@@ -27,15 +27,15 @@ namespace IronRuby.Libraries.Json {
                     public static GeneratorState/*!*/ CreateGeneratorState(RubyClass/*!*/ self, [Optional]Hash configuration) {
                         GeneratorState state = new GeneratorState();
                         if (configuration != null) {
-                            Reinitialize(state, configuration);
+                            Reinitialize(self.Context, state, configuration);
                         }
                         return state;
                     }
 
                     [RubyMethod("initialize", RubyMethodAttributes.PrivateInstance)]
-                    public static GeneratorState Reinitialize(GeneratorState self, Hash configuration) {
+                    public static GeneratorState Reinitialize(RubyContext context, GeneratorState self, Hash configuration) {
                         if (configuration != null) {
-                            GeneratorState.Configure(self, configuration);
+                            GeneratorState.Configure(context, self, configuration);
                         }
 
                         return self;
@@ -46,8 +46,8 @@ namespace IronRuby.Libraries.Json {
                     #region instance methods
 
                     [RubyMethod("configure")]
-                    public static GeneratorState Reconfigure(GeneratorState/*!*/ self, Hash/*!*/ configuration) {
-                        GeneratorState.Configure(self, configuration);
+                    public static GeneratorState Reconfigure(RubyContext context, GeneratorState/*!*/ self, Hash/*!*/ configuration) {
+                        GeneratorState.Configure(context, self, configuration);
                         return self;
                     }
 
@@ -56,14 +56,14 @@ namespace IronRuby.Libraries.Json {
                         // TODO: vOpts.respondsTo("to_hash")
                         Hash configurationHash = new Hash(context);
 
-                        configurationHash.Add(Helpers.GetGeneratorStateKey("indent"), self.Indent);
-                        configurationHash.Add(Helpers.GetGeneratorStateKey("space"), self.Space);
-                        configurationHash.Add(Helpers.GetGeneratorStateKey("space_before"), self.SpaceBefore);
-                        configurationHash.Add(Helpers.GetGeneratorStateKey("object_nl"), self.ObjectNl);
-                        configurationHash.Add(Helpers.GetGeneratorStateKey("array_nl"), self.ArrayNl);
-                        configurationHash.Add(Helpers.GetGeneratorStateKey("check_circular"), self.CheckCircular);
-                        configurationHash.Add(Helpers.GetGeneratorStateKey("allow_nan"), self.AllowNaN);
-                        configurationHash.Add(Helpers.GetGeneratorStateKey("max_nesting"), self.MaxNesting);
+                        configurationHash.Add(Helpers.GetGeneratorStateKey(context, "indent"), self.Indent);
+                        configurationHash.Add(Helpers.GetGeneratorStateKey(context, "space"), self.Space);
+                        configurationHash.Add(Helpers.GetGeneratorStateKey(context, "space_before"), self.SpaceBefore);
+                        configurationHash.Add(Helpers.GetGeneratorStateKey(context, "object_nl"), self.ObjectNl);
+                        configurationHash.Add(Helpers.GetGeneratorStateKey(context, "array_nl"), self.ArrayNl);
+                        configurationHash.Add(Helpers.GetGeneratorStateKey(context, "check_circular"), self.CheckCircular);
+                        configurationHash.Add(Helpers.GetGeneratorStateKey(context, "allow_nan"), self.AllowNaN);
+                        configurationHash.Add(Helpers.GetGeneratorStateKey(context, "max_nesting"), self.MaxNesting);
 
                         return configurationHash;
                     }
@@ -91,10 +91,10 @@ namespace IronRuby.Libraries.Json {
                         }
 
                         if (source is Hash) {
-                            return Reinitialize(new GeneratorState(), source as Hash);
+                            return Reinitialize(context, new GeneratorState(), source as Hash);
                         }
 
-                        return Reinitialize(new GeneratorState(), null);
+                        return Reinitialize(context, new GeneratorState(), null);
                     }
 
                     #endregion
