@@ -89,11 +89,11 @@ namespace IronRuby.JsonExt {
         }
 
         public static void ThrowCircularDataStructureException(String message, params Object[] args) {
-            throw new JSON.CircularDatastructureException(String.Format(message, args));
+            throw new CircularDatastructureException(String.Format(message, args));
         }
 
         public static void ThrowGenerateException(String message, params Object[] args) {
-            throw new JSON.GenerateException(String.Format(message, args));
+            throw new GenerateException(String.Format(message, args));
         }
 
         #endregion
@@ -118,11 +118,11 @@ namespace IronRuby.JsonExt {
         }
 
         public static void ThrowNestingException(String message, params Object[] args) {
-            throw new JSON.NestingException(String.Format(message, args));
+            throw new NestingException(String.Format(message, args));
         }
 
         public static void ThrowParserException(String message, params Object[] args) {
-            throw new JSON.ParserException(String.Format(message, args));
+            throw new ParserException(String.Format(message, args));
         }
 
         public static String GetMessageForException(String source, int p, int pe) {
