@@ -87,8 +87,8 @@ namespace IronRuby.JsonExt {
         }
 
         public Object Parse(RubyScope/*!*/ scope) {
-            _json.scope = scope;
-            _json.context = scope.RubyContext;
+            _json.Scope = scope;
+            _json.Context = scope.RubyContext;
             Object result = ParserEngine.Parse(_json);
             return result;
         }

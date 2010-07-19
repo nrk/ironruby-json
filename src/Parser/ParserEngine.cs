@@ -129,7 +129,7 @@ namespace IronRuby.JsonExt {
                 Helpers.ThrowNestingException("nesting of {0:d} is to deep", json.current_nesting);
             }
 
-            result = new Hash(json.context);
+            result = new Hash(json.Context);
 
             #region ** ragel generated code **
 
@@ -247,14 +247,14 @@ namespace IronRuby.JsonExt {
                     if (classNameT != null) {
                         RubyModule classClass;
                         String className = (classNameT as MutableString).ToString();
-                        if (!json.context.TryGetModule(json.scope.GlobalScope, className, out classClass)) {
+                        if (!json.Context.TryGetModule(json.Scope.GlobalScope, className, out classClass)) {
                             throw RubyExceptions.CreateArgumentError(String.Format("can't find const {0}", className));
                         }
 
-                        if (Protocols.RespondTo(json.parser.RespondToStorage, classClass, "json_creatable?")) {
-                            bool creatable = (bool) _jsonCreatableCallSite.Target(_jsonCreatableCallSite, json.context, classClass);
+                        if (Protocols.RespondTo(json.Parser.RespondToStorage, classClass, "json_creatable?")) {
+                            bool creatable = (bool) _jsonCreatableCallSite.Target(_jsonCreatableCallSite, json.Context, classClass);
                             if (creatable) {
-                                result = _jsonCreateCallSite.Target(_jsonCreateCallSite, json.context, classClass, result);
+                                result = _jsonCreateCallSite.Target(_jsonCreateCallSite, json.Context, classClass, result);
                             }
                         }
                     }
@@ -1294,7 +1294,7 @@ namespace IronRuby.JsonExt {
         public static ParserEngineState InitializeState(Parser parser, MutableString source) {
             ParserEngineState json = new ParserEngineState();
 
-            json.parser = parser;
+            json.Parser = parser;
             json.vsource = source;
             json.source = source.ToString();
 
