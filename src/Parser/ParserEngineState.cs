@@ -1,7 +1,7 @@
 ﻿using System;
 using IronRuby.Runtime;
 
-namespace IronRuby.Libraries.Json {
+namespace IronRuby.JsonExt {
     public class ParserEngineState {
         public Object vsource;
         public String source;

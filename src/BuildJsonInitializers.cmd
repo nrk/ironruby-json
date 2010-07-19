@@ -1,1 +1,1 @@
-..\deps\ClassInitGenerator.exe ..\bin\Debug\IronRuby.Libraries.Json.dll -libraries:IronRuby.Libraries.Json -out:Initializers.Generated.cs
+..\deps\ClassInitGenerator.exe ..\bin\Debug\IronRuby.JsonExt.dll -libraries:IronRuby.JsonExt -out:Initializers.Generated.cs

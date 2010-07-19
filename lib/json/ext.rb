@@ -7,7 +7,7 @@ module JSON
     #require 'json/ext/parser'
     #require 'json/ext/generator'
 
-    load_assembly 'IronRuby.Libraries.Json', 'IronRuby.Libraries.Json'
+    load_assembly 'IronRuby.JsonExt', 'IronRuby.JsonExt'
     $DEBUG and warn "Using c extension for JSON."
 
     JSON.parser = JSON__::Ext::Parser

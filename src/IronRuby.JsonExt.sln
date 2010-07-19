@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronRuby.Libraries.Json", "IronRuby.Libraries.Json.csproj", "{050BF41C-6027-4080-A0C9-2D027E5FF8CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronRuby.JsonExt", "IronRuby.JsonExt.csproj", "{050BF41C-6027-4080-A0C9-2D027E5FF8CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

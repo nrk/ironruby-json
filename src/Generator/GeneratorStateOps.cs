@@ -10,7 +10,7 @@ using IronRuby.Runtime;
 using Microsoft.Scripting;
 using Microsoft.Scripting.Runtime;
 
-namespace IronRuby.Libraries.Json {
+namespace IronRuby.JsonExt {
     public static partial class JSON {
         public static partial class Ext {
 

@@ -11,7 +11,7 @@ using Microsoft.Scripting;
 using Microsoft.Scripting.Utils;
 using Microsoft.Scripting.Runtime;
 
-namespace IronRuby.Libraries.Json.Builtins {
+namespace IronRuby.JsonExt {
     [RubyClass(Extends = typeof(Object))]
     public static class ObjectOps {
         [RubyMethod("to_json")]

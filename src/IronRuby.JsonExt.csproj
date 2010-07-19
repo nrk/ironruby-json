@@ -8,8 +8,8 @@
     <ProjectGuid>{050BF41C-6027-4080-A0C9-2D027E5FF8CB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IronRuby.Libraries.Json</RootNamespace>
-    <AssemblyName>IronRuby.Libraries.Json</AssemblyName>
+    <RootNamespace>IronRuby.JsonExt</RootNamespace>
+    <AssemblyName>IronRuby.JsonExt</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>

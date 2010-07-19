@@ -2,7 +2,7 @@
 using IronRuby.Builtins;
 using IronRuby.Runtime;
 
-namespace IronRuby.Libraries.Json.Builtins {
+namespace IronRuby.JsonExt {
     public static partial class MutableStringOps {
         [RubyMethod("json_create", RubyMethodAttributes.PublicSingleton)]
         public static MutableString JsonCreate(ConversionStorage<IntegerValue>/*!*/ integerConversion, 

@@ -2,7 +2,7 @@
 using System.Text;
 using IronRuby.Builtins;
 
-namespace IronRuby.Libraries.Json {
+namespace IronRuby.JsonExt {
     /// <summary>
     /// This class has been implemented following the StringDecoder class 
     /// that can be found in recent versions of Daniel Luz's json-jruby.

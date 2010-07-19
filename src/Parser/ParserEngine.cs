@@ -10,7 +10,7 @@ using IronRuby.Builtins;
 using IronRuby.Runtime;
 using IronRuby.Runtime.Calls;
 
-namespace IronRuby.Libraries.Json {
+namespace IronRuby.JsonExt {
     using JSONCreatableCallSite = CallSite<Func<CallSite, RubyContext, Object, Object>>;
     using JSONCreateCallSite = CallSite<Func<CallSite, RubyContext, Object, Object, Object>>;
 

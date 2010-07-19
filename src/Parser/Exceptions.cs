@@ -2,7 +2,7 @@
 using IronRuby.Builtins;
 using IronRuby.Runtime;
 
-namespace IronRuby.Libraries.Json {
+namespace IronRuby.JsonExt {
     public static partial class JSON {
         [RubyClass("JSONError")]
         public class BaseException : SystemException {

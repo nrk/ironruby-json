@@ -10,7 +10,7 @@ using Microsoft.Scripting;
 using Microsoft.Scripting.Utils;
 using Microsoft.Scripting.Runtime;
 
-namespace IronRuby.Libraries.Json {
+namespace IronRuby.JsonExt {
     using ToJsonStateCallSite = CallSite<Func<CallSite, RubyContext, Object, GeneratorState, Int32, Object>>;
 
     public static class Generator {

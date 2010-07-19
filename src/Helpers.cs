@@ -10,7 +10,7 @@ using Microsoft.Scripting;
 using Microsoft.Scripting.Utils;
 using Microsoft.Scripting.Runtime;
 
-namespace IronRuby.Libraries.Json {
+namespace IronRuby.JsonExt {
     using CreateIdCallSite = CallSite<Func<CallSite, RubyContext, Object, Object>>;
     using ExceptionCreateCallSite = CallSite<Func<CallSite, RubyContext, Object, MutableString, Exception>>;
     using SetBacktraceStorage = CallSiteStorage<Action<CallSite, Exception, RubyArray>>;
