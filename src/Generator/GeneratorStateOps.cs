@@ -13,9 +13,6 @@ using Microsoft.Scripting.Runtime;
 namespace IronRuby.JsonExt {
     [RubyClass("State", Extends = typeof(GeneratorState), DefineIn = typeof(GeneratorModule))]
     public class GeneratorStateOps {
-
-        #region constructors and initializers
-
         [RubyMethod("new", RubyMethodAttributes.PublicSingleton)]
         public static GeneratorState/*!*/ CreateGeneratorState(RubyClass/*!*/ self, [Optional]Hash configuration) {
             GeneratorState state = new GeneratorState();
@@ -33,10 +30,6 @@ namespace IronRuby.JsonExt {
 
             return self;
         }
-
-        #endregion
-
-        #region instance methods
 
         [RubyMethod("configure")]
         public static GeneratorState Reconfigure(RubyContext context, GeneratorState/*!*/ self, Hash/*!*/ configuration) {
@@ -89,10 +82,6 @@ namespace IronRuby.JsonExt {
 
             return Reinitialize(context, new GeneratorState(), null);
         }
-
-        #endregion
-
-        #region public accessors
 
         [RubyMethod("indent")]
         public static MutableString GetIndent(RubyContext context, GeneratorState self) {
@@ -158,8 +147,5 @@ namespace IronRuby.JsonExt {
         public static void SetMaxNesting(RubyContext context, GeneratorState self, Int32 value) {
             self.MaxNesting = value;
         }
-
-        #endregion
-
     }
 }

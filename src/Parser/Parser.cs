@@ -10,7 +10,10 @@ using Microsoft.Scripting.Runtime;
 
 namespace IronRuby.JsonExt {
     public class Parser {
-        #region symbols
+        #region fields
+
+        private const int JSON_MAX_NESTING = 19;
+        private const bool JSON_ALLOW_NAN = false;
 
         private static RubySymbol _maxNesting;
         private static RubySymbol _allowNan;
@@ -20,29 +23,15 @@ namespace IronRuby.JsonExt {
         private static RubySymbol _createAdditions;
         private static RubySymbol _chr;
 
-        #endregion
-
-        #region fields
-
         private ParserEngineState _json;
-
         private RespondToStorage _respondToStorage;
 
         #endregion
 
-        #region constants 
-
-        private const int JSON_MAX_NESTING = 19;
-        private const bool JSON_ALLOW_NAN = false;
-
-        #endregion
-
-        #region constructor 
-
         public Parser(RubyScope scope, RespondToStorage respondToStorage, MutableString source)
-            : this(scope, respondToStorage, source, new Hash(scope.RubyContext)) { }
-
-
+            : this(scope, respondToStorage, source, new Hash(scope.RubyContext)) { 
+        }
+        
         public Parser(RubyScope scope, RespondToStorage respondToStorage, MutableString source, Hash options) {
             InitializeLibrary(scope, respondToStorage);
 
@@ -83,10 +72,6 @@ namespace IronRuby.JsonExt {
             }
         }
 
-        #endregion
-
-        #region methods 
-
         public void InitializeLibrary(RubyScope scope, RespondToStorage respondToStorage) { 
             KernelOps.Require(scope, this, MutableString.CreateAscii("json/common"));
 
@@ -108,10 +93,6 @@ namespace IronRuby.JsonExt {
             return result;
         }
 
-        #endregion
-
-        #region properties
-
         public RespondToStorage RespondToStorage {
             get { return _respondToStorage; }
         }
@@ -119,7 +100,5 @@ namespace IronRuby.JsonExt {
         public Object Source {
             get { return _json.source; }
         }
-
-        #endregion
     }
 }

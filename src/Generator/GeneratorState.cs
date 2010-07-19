@@ -12,7 +12,7 @@ using Microsoft.Scripting.Runtime;
 
 namespace IronRuby.JsonExt {
     public class GeneratorState {
-        #region fields
+        #region fields 
 
         public const Int32 DEFAULT_MAX_NESTING = 19;
 
@@ -23,15 +23,11 @@ namespace IronRuby.JsonExt {
         private MutableString _arrayNl;
 
         private List<long> _seen;
-
         private bool _checkCircular;
         private bool _allowNaN;
-
         private int _maxNesting;
 
         #endregion
-
-        #region constructor 
 
         public GeneratorState() {
             _indent = MutableString.CreateEmpty();
@@ -41,16 +37,10 @@ namespace IronRuby.JsonExt {
             _arrayNl = MutableString.CreateEmpty();
 
             _seen = new List<long>();
-
             _checkCircular = true;
             _allowNaN = false;
-
             _maxNesting = DEFAULT_MAX_NESTING;
         }
-
-        #endregion
-
-        #region static methods
 
         public static void Configure(RubyContext/*!*/ context, GeneratorState/*!*/ self, Hash/*!*/ configuration) {
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "indent"))) {
@@ -99,10 +89,6 @@ namespace IronRuby.JsonExt {
             }
         }
 
-        #endregion
-
-        #region instance methods
-
         public void CheckMaxNesting(int depth) {
             if (_maxNesting != 0 && depth > _maxNesting) {
                 Helpers.ThrowNestingException("nesting of {0:d} is to deep", depth);
@@ -124,11 +110,7 @@ namespace IronRuby.JsonExt {
         public bool Seen(RubyContext context, Object obj) {
             return _seen.Contains(RubyUtils.GetObjectId(context, obj));
         }
-
-        #endregion
-
-        #region properties
-
+        
         public MutableString Indent {
             get { return _indent; }
             set { _indent = value; }
@@ -168,7 +150,5 @@ namespace IronRuby.JsonExt {
             get { return _maxNesting; }
             set { _maxNesting = value; }
         }
-
-        #endregion
     }
 }

@@ -27,28 +27,16 @@ namespace IronRuby.JsonExt {
          * I am thinking of postponing this until everything is stable.
          */
 
-        #region constants
-
         private const Int32 EVIL = 0x666;
-
         private const Int32 DEFAULT_MAX_NESTING = 19;
-
         private const String JSON_MINUS_INFINITY = "-Infinity";
         private const Double CONSTANT_NAN = Double.NaN;
         private const Double CONSTANT_INFINITY = Double.PositiveInfinity;
         private const Double CONSTANT_MINUS_INFINITY = Double.NegativeInfinity;
-
-        #endregion
-
-        #region callsites 
-
+        
         private static readonly JSONCreatableCallSite _jsonCreatableCallSite = JSONCreatableCallSite.Create(RubyCallAction.MakeShared("json_creatable?", RubyCallSignature.Simple(0)));
         private static readonly JSONCreateCallSite _jsonCreateCallSite = JSONCreateCallSite.Create(RubyCallAction.MakeShared("json_create", RubyCallSignature.Simple(0)));
-
-        #endregion
-
-
-
+        
         #region ** ragel generated code **
 
         static readonly sbyte[] _JSON_object_actions = new sbyte[] {
@@ -132,9 +120,6 @@ namespace IronRuby.JsonExt {
         const int JSON_object_en_main = 1;
 
         #endregion
-
-
-        #region JSON_parse_object
 
         static int? JSON_parse_object(ParserEngineState json, String source, ref int p, ref int pe, ref Object result) {
             int cs = EVIL;
@@ -282,9 +267,6 @@ namespace IronRuby.JsonExt {
             }
         }
 
-        #endregion
-
-
         #region ** ragel generated code **
 
         static readonly sbyte[] _JSON_value_actions = new sbyte[] {
@@ -357,9 +339,6 @@ namespace IronRuby.JsonExt {
         const int JSON_value_en_main = 1;
 
         #endregion
-
-
-        #region JSON_parse_value
 
         static int? JSON_parse_value(ParserEngineState json, String source, ref int p, ref int pe, ref Object result) {
             int cs = EVIL;
@@ -540,10 +519,7 @@ namespace IronRuby.JsonExt {
                 return null;
             }
         }
-
-        #endregion
         
-
         #region ** ragel generated code **
 
 
@@ -592,10 +568,7 @@ namespace IronRuby.JsonExt {
         const int JSON_integer_en_main = 1;
 
         #endregion
-
-
-        #region JSON_parse_integer
-
+        
         static int? JSON_parse_integer(ParserEngineState json, String source, ref int p, ref int pe, ref Object result) {
             int cs = EVIL;
 
@@ -706,9 +679,6 @@ namespace IronRuby.JsonExt {
             }
         }
 
-        #endregion
-
-
         #region ** ragel generated code **
 
         static readonly sbyte[] _JSON_float_actions = new sbyte[] {
@@ -768,9 +738,6 @@ namespace IronRuby.JsonExt {
         const int JSON_float_en_main = 1;
 
         #endregion
-
-
-        #region JSON_parse_float
 
         static int? JSON_parse_float(ParserEngineState json, String source, ref int p, ref int pe, ref Object result) {
             int cs = EVIL;
@@ -886,9 +853,6 @@ namespace IronRuby.JsonExt {
             }
         }
 
-        #endregion
-
-
         #region ** ragel generated code **
 
         static readonly sbyte[] _JSON_array_actions = new sbyte[] {
@@ -961,9 +925,6 @@ namespace IronRuby.JsonExt {
         const int JSON_array_en_main = 1;
 
         #endregion
-
-
-        #region JSON_parse_array
 
         static int? JSON_parse_array(ParserEngineState json, String source, ref int p, ref int pe, ref Object result) {
             int cs = EVIL;
@@ -1086,20 +1047,12 @@ namespace IronRuby.JsonExt {
             }
             return null;
         }
-
-        #endregion
-
-
-        #region json_string_unescape
-
+        
         static Object UnescapeJsonString(String source, ref int p, ref int pe) {
             JsonStringUnescaper unescaper = new JsonStringUnescaper(source.ToCharArray(p, pe - p));
             p = pe;
             return unescaper.Unescape();
         }
-
-        #endregion
-
 
         #region ** ragel generated code **
 
@@ -1157,9 +1110,6 @@ namespace IronRuby.JsonExt {
         const int JSON_string_en_main = 1;
 
         #endregion
-
-
-        #region JSON_parse_string
 
         static int? JSON_parse_string(ParserEngineState json, String source, ref int p, ref int pe, ref Object result) {
             int cs = EVIL;
@@ -1281,10 +1231,7 @@ namespace IronRuby.JsonExt {
                 return null;
             }
         }
-
-        #endregion
-
-
+        
         #region ** ragel generated code **
 
         static readonly sbyte[] _JSON_actions = new sbyte[] {
@@ -1343,8 +1290,7 @@ namespace IronRuby.JsonExt {
         const int JSON_en_main = 1;
 
         #endregion
-
-
+        
         public static ParserEngineState InitializeState(Parser parser, MutableString source) {
             ParserEngineState json = new ParserEngineState();
 

@@ -16,20 +16,13 @@ namespace IronRuby.JsonExt {
     using SetBacktraceStorage = CallSiteStorage<Action<CallSite, Exception, RubyArray>>;
 
     public static class Helpers {
-        #region static fields
-
         private static readonly byte[] HEX = new byte[] {
-                    (byte)'0', (byte)'1', (byte)'2', (byte)'3', (byte)'4', (byte)'5', (byte)'6', (byte)'7',
-                    (byte)'8', (byte)'9', (byte)'a', (byte)'b', (byte)'c', (byte)'d', (byte)'e', (byte)'f'
-                };
+            (byte)'0', (byte)'1', (byte)'2', (byte)'3', (byte)'4', (byte)'5', (byte)'6', (byte)'7',
+            (byte)'8', (byte)'9', (byte)'a', (byte)'b', (byte)'c', (byte)'d', (byte)'e', (byte)'f'
+        };
 
         private static Dictionary<String, RubySymbol> _generatorStateKeyMappings;
-
         private static readonly MutableString _jsonClass = MutableString.CreateAscii("json_class");
-
-        #endregion
-
-        #region static constructor
 
         private static IDictionary<String, RubySymbol> InitializeGeneratorStateKey(RubyContext context) {
             // TODO: I do not really like how I implemented this...
@@ -46,8 +39,14 @@ namespace IronRuby.JsonExt {
             }
             return _generatorStateKeyMappings;
         }
-
-        #endregion
+        
+        private static RubyModule GetModule(RubyScope scope, String className) {
+            RubyModule module;
+            if (!scope.RubyContext.TryGetModule(scope.GlobalScope, className, out module)) {
+                throw RubyExceptions.CreateNameError(className);
+            }
+            return module;
+        }
 
         #region generator helpers 
 
@@ -134,13 +133,5 @@ namespace IronRuby.JsonExt {
         }
 
         #endregion
-
-        private static RubyModule GetModule(RubyScope scope, String className)  {
-            RubyModule module;
-            if (!scope.RubyContext.TryGetModule(scope.GlobalScope, className, out module)) {
-                throw RubyExceptions.CreateNameError(className);
-            }
-            return module;
-        }
     }
 }
