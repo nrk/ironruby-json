@@ -74,6 +74,8 @@
     <Compile Include="Generator\GeneratorState.cs" />
     <Compile Include="Generator\BuiltinsOps.cs" />
     <Compile Include="Generator\Generator.cs" />
+    <Compile Include="Helpers\Helpers.Parser.cs" />
+    <Compile Include="Helpers\Helpers.Generator.cs" />
     <Compile Include="Initializers.Generated.cs" />
     <Compile Include="JsonStringUnescaper.cs" />
     <Compile Include="ModuleHierarchy.cs" />
@@ -84,7 +86,7 @@
     <Compile Include="Parser\ParserOps.cs" />
     <Compile Include="Parser\ParserEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helpers.cs" />
+    <Compile Include="Helpers\Helpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
