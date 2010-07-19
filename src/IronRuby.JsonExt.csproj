@@ -75,8 +75,8 @@
     <Compile Include="Generator\Types\Generator.Float.cs" />
     <Compile Include="Generator\Types\Generator.Fixnum.cs" />
     <Compile Include="Generator\Types\Generator.String.cs" />
-    <Compile Include="Generator\Types\Generator.IDictionary.cs" />
-    <Compile Include="Generator\Types\Generator.IList.cs" />
+    <Compile Include="Generator\Types\Generator.Hash.cs" />
+    <Compile Include="Generator\Types\Generator.Array.cs" />
     <Compile Include="Generator\Types\Generator.Object.cs" />
     <Compile Include="Generator\GeneratorStateOps.cs" />
     <Compile Include="Generator\GeneratorState.cs" />
@@ -87,7 +87,7 @@
     <Compile Include="JsonStringUnescaper.cs" />
     <Compile Include="ModuleHierarchy.cs" />
     <Compile Include="Parser\BuiltinsOps.cs" />
-    <Compile Include="Parser\Exceptions.cs" />
+    <Compile Include="Exceptions.cs" />
     <Compile Include="Parser\Parser.cs" />
     <Compile Include="Parser\ParserEngineState.cs" />
     <Compile Include="Parser\ParserOps.cs" />
