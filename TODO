@@ -1,15 +1,10 @@
- * There is a bug when throwing exceptions from within C# (exceptions do not 
-   have the right message string and have no backtrace).
-
  * ParserEngine and ParserEngineState need a rework, the JSON_parse_* methods 
    are not so object oriented.
-
- * Tests, tests, tests. Seriously, they are needed.
 
  * Check if the code removed in JSON#generator= (common.rb) could break the 
    "pure" variant of this library.
 
- * I still have to create ParserEngine.rl to auto-generate the C# code using 
-   Ragel.
+ * Create ParserEngine.rl to auto-generate the C# code using Ragel.
 
- * Code needs more comments
+ * Code needs more comments.
+ 
