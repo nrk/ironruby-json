@@ -1,0 +1,5 @@
+bin/
+deps/
+builds/
+src/obj
+src/*.suo
