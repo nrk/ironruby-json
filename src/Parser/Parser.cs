@@ -36,7 +36,6 @@ namespace IronRuby.JsonExt {
 
             _json = ParserEngine.InitializeState(this, source);
             _json.Scope = scope;
-            _json.Context = scope.RubyContext;
 
             if (options.Count > 0) {
                 if (options.ContainsKey(_maxNesting)) {
