@@ -54,14 +54,8 @@ namespace IronRuby.JsonExt {
                 _json.allow_nan = options.ContainsKey(_allowNan) ? (bool)(options[_allowNan] ?? JSON_ALLOW_NAN) : JSON_ALLOW_NAN;
 
                 if (options.ContainsKey(_createAdditions)) {
-                    if ((bool)options[_createAdditions] == true) {
-                        //TODO: check needed, create_id could be TrueClass, FalseClass, NilClass or String
-                        MutableString createId = Helpers.GetCreateId(scope);
-                        _json.create_id = createId;
-                    }
-                    else {
-                        _json.create_id = null;
-                    }
+                    //TODO: check needed, create_id could be TrueClass, FalseClass, NilClass or String
+                    _json.create_id = (bool)options[_createAdditions] ? Helpers.GetCreateId(scope) : null;
                 }
             }
             else {
@@ -86,8 +80,7 @@ namespace IronRuby.JsonExt {
         public Object Parse(RubyScope/*!*/ scope) {
             _json.Scope = scope;
             _json.Context = scope.RubyContext;
-            Object result = ParserEngine.Parse(_json);
-            return result;
+            return ParserEngine.Parse(_json);
         }
 
         public Object Source {
