@@ -105,8 +105,8 @@ namespace IronRuby.JsonExt {
     [RubyModule(Extends = typeof(IDictionary))]
     public static class DictionaryOps {
         [RubyMethod("to_json")]
-        public static MutableString ToJson(ConversionStorage<MutableString> toS, RubyScope/*!*/ scope,
-            IDictionary self, [Optional]GeneratorState state, [Optional]Int32 depth) {
+        public static MutableString ToJson(ConversionStorage<MutableString> toS, IDictionary self, 
+            [Optional]GeneratorState state, [Optional]Int32 depth) {
 
             return Generator.ToJson(toS, self, state, depth);
         }
@@ -115,8 +115,8 @@ namespace IronRuby.JsonExt {
     [RubyClass(Extends = typeof(Hash))]
     public static class HashOps {
         [RubyMethod("to_json")]
-        public static MutableString ToJson(ConversionStorage<MutableString> toS, RubyScope/*!*/ scope,
-            Hash self, [Optional]GeneratorState state, [Optional]Int32 depth) {
+        public static MutableString ToJson(ConversionStorage<MutableString> toS, Hash self, 
+            [Optional]GeneratorState state, [Optional]Int32 depth) {
 
             return Generator.ToJson(toS, self, state, depth);
         }

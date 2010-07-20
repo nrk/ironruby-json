@@ -118,20 +118,20 @@ namespace IronRuby.JsonExt {
     [RubyModule(Extends = typeof(IList))]
     public static class IListOps {
         [RubyMethod("to_json")]
-        public static MutableString ToJson(RubyScope/*!*/ scope, IList self,
+        public static MutableString ToJson(RubyContext/*!*/ context, IList self,
             [Optional]GeneratorState state, [Optional]Int32 depth) {
 
-            return Generator.ToJson(scope.RubyContext, self, state, depth);
+            return Generator.ToJson(context, self, state, depth);
         }
     }
     
     [RubyClass(Extends = typeof(RubyArray))]
     public static class ArrayOps {
         [RubyMethod("to_json")]
-        public static MutableString ToJson(RubyScope/*!*/ scope, RubyArray self,
+        public static MutableString ToJson(RubyContext/*!*/ context, RubyArray self,
             [Optional]GeneratorState state, [Optional]Int32 depth) {
 
-            return Generator.ToJson(scope.RubyContext, self, state, depth);
+            return Generator.ToJson(context, self, state, depth);
         }
     }
 }

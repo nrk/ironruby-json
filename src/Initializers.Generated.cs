@@ -56,7 +56,7 @@ namespace IronRuby.JsonExt {
         private static void LoadIronRuby__Builtins__Hash_Instance(IronRuby.Builtins.RubyModule/*!*/ module) {
             DefineLibraryMethod(module, "to_json", 0x11, 
                 0x00000000U, 
-                new Func<IronRuby.Runtime.ConversionStorage<IronRuby.Builtins.MutableString>, IronRuby.Runtime.RubyScope, IronRuby.Builtins.Hash, IronRuby.JsonExt.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.HashOps.ToJson)
+                new Func<IronRuby.Runtime.ConversionStorage<IronRuby.Builtins.MutableString>, IronRuby.Builtins.Hash, IronRuby.JsonExt.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.HashOps.ToJson)
             );
             
         }
@@ -89,8 +89,8 @@ namespace IronRuby.JsonExt {
         
         private static void LoadIronRuby__Builtins__RubyArray_Instance(IronRuby.Builtins.RubyModule/*!*/ module) {
             DefineLibraryMethod(module, "to_json", 0x11, 
-                0x00000000U, 
-                new Func<IronRuby.Runtime.RubyScope, IronRuby.Builtins.RubyArray, IronRuby.JsonExt.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.ArrayOps.ToJson)
+                0x00000000U,
+                new Func<IronRuby.Runtime.RubyContext, IronRuby.Builtins.RubyArray, IronRuby.JsonExt.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.ArrayOps.ToJson)
             );
             
         }
@@ -233,7 +233,7 @@ namespace IronRuby.JsonExt {
         private static void LoadSystem__Collections__IDictionary_Instance(IronRuby.Builtins.RubyModule/*!*/ module) {
             DefineLibraryMethod(module, "to_json", 0x11, 
                 0x00000000U, 
-                new Func<IronRuby.Runtime.ConversionStorage<IronRuby.Builtins.MutableString>, IronRuby.Runtime.RubyScope, System.Collections.IDictionary, IronRuby.JsonExt.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.DictionaryOps.ToJson)
+                new Func<IronRuby.Runtime.ConversionStorage<IronRuby.Builtins.MutableString>, System.Collections.IDictionary, IronRuby.JsonExt.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.DictionaryOps.ToJson)
             );
             
         }
@@ -241,7 +241,7 @@ namespace IronRuby.JsonExt {
         private static void LoadSystem__Collections__IList_Instance(IronRuby.Builtins.RubyModule/*!*/ module) {
             DefineLibraryMethod(module, "to_json", 0x11, 
                 0x00000000U, 
-                new Func<IronRuby.Runtime.RubyScope, System.Collections.IList, IronRuby.JsonExt.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.IListOps.ToJson)
+                new Func<IronRuby.Runtime.RubyContext, System.Collections.IList, IronRuby.JsonExt.GeneratorState, System.Int32, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.IListOps.ToJson)
             );
             
         }
