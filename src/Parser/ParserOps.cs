@@ -13,10 +13,10 @@ namespace IronRuby.JsonExt {
     [RubyClass("Parser", Extends = typeof(Parser), DefineIn = typeof(ExtModule))]
     public class ParserOps {
         [RubyConstructor]
-        public static Parser CreateParser(RespondToStorage/*!*/ respondToStorage, RubyScope/*!*/ scope, 
-            RubyClass/*!*/ self, MutableString/*!*/ source, [DefaultParameterValue(null)]Hash options) {
+        public static Parser CreateParser(RubyScope/*!*/ scope, RubyClass/*!*/ self, MutableString/*!*/ source, 
+            [DefaultParameterValue(null)]Hash options) {
 
-            return new Parser(scope, respondToStorage, source, options != null ? options : new Hash(scope.RubyContext));
+            return new Parser(scope, source, options != null ? options : new Hash(scope.RubyContext));
         }
 
         [RubyMethod("parse")]

@@ -28,7 +28,7 @@ namespace IronRuby.JsonExt {
             ExtendClass(typeof(System.String), 0x00000000, null, LoadSystem__String_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             IronRuby.Builtins.RubyClass def7 = DefineClass("JSON::Ext::Generator::State", typeof(IronRuby.JsonExt.GeneratorState), 0x00000000, Context.ObjectClass, LoadJSON__Ext__Generator__State_Instance, LoadJSON__Ext__Generator__State_Class, null, IronRuby.Builtins.RubyModule.EmptyArray);
             IronRuby.Builtins.RubyClass def9 = DefineClass("JSON::Ext::Parser", typeof(IronRuby.JsonExt.Parser), 0x00000000, Context.ObjectClass, LoadJSON__Ext__Parser_Instance, null, null, IronRuby.Builtins.RubyModule.EmptyArray, 
-                new Func<IronRuby.Runtime.RespondToStorage, IronRuby.Runtime.RubyScope, IronRuby.Builtins.RubyClass, IronRuby.Builtins.MutableString, IronRuby.Builtins.Hash, IronRuby.JsonExt.Parser>(IronRuby.JsonExt.ParserOps.CreateParser)
+                new Func<IronRuby.Runtime.RubyScope, IronRuby.Builtins.RubyClass, IronRuby.Builtins.MutableString, IronRuby.Builtins.Hash, IronRuby.JsonExt.Parser>(IronRuby.JsonExt.ParserOps.CreateParser)
             );
             IronRuby.Builtins.RubyClass def5 = DefineClass("JSON::GeneratorError", typeof(IronRuby.JsonExt.GenerateException), 0x00000008, def2, null, null, null, IronRuby.Builtins.RubyModule.EmptyArray);
             IronRuby.Builtins.RubyClass def10 = DefineClass("JSON::ParserError", typeof(IronRuby.JsonExt.ParserException), 0x00000008, def2, null, null, null, IronRuby.Builtins.RubyModule.EmptyArray);

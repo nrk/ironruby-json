@@ -24,16 +24,15 @@ namespace IronRuby.JsonExt {
         private static RubySymbol _chr;
 
         private ParserEngineState _json;
-        private RespondToStorage _respondToStorage;
 
         #endregion
 
-        public Parser(RubyScope scope, RespondToStorage respondToStorage, MutableString source)
-            : this(scope, respondToStorage, source, new Hash(scope.RubyContext)) { 
+        public Parser(RubyScope scope, MutableString source)
+            : this(scope, source, new Hash(scope.RubyContext)) { 
         }
         
-        public Parser(RubyScope scope, RespondToStorage respondToStorage, MutableString source, Hash options) {
-            InitializeLibrary(scope, respondToStorage);
+        public Parser(RubyScope scope, MutableString source, Hash options) {
+            InitializeLibrary(scope);
 
             _json = ParserEngine.InitializeState(this, source);
 
@@ -72,7 +71,7 @@ namespace IronRuby.JsonExt {
             }
         }
 
-        public void InitializeLibrary(RubyScope scope, RespondToStorage respondToStorage) { 
+        public void InitializeLibrary(RubyScope scope) { 
             KernelOps.Require(scope, this, MutableString.CreateAscii("json/common"));
 
             _maxNesting = scope.RubyContext.CreateAsciiSymbol("max_nesting");
@@ -82,8 +81,6 @@ namespace IronRuby.JsonExt {
             _createId = scope.RubyContext.CreateAsciiSymbol("create_id");
             _createAdditions = scope.RubyContext.CreateAsciiSymbol("create_additions");
             _chr = scope.RubyContext.CreateAsciiSymbol("chr");
-
-            _respondToStorage = respondToStorage;
         }
 
         public Object Parse(RubyScope/*!*/ scope) {
@@ -91,10 +88,6 @@ namespace IronRuby.JsonExt {
             _json.Context = scope.RubyContext;
             Object result = ParserEngine.Parse(_json);
             return result;
-        }
-
-        public RespondToStorage RespondToStorage {
-            get { return _respondToStorage; }
         }
 
         public Object Source {

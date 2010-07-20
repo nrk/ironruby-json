@@ -250,8 +250,7 @@ namespace IronRuby.JsonExt {
                         if (!json.Context.TryGetModule(json.Scope.GlobalScope, className, out classClass)) {
                             throw RubyExceptions.CreateArgumentError(String.Format("can't find const {0}", className));
                         }
-
-                        if (Protocols.RespondTo(json.Parser.RespondToStorage, classClass, "json_creatable?")) {
+                        if (json.Context.RespondTo(classClass, "json_creatable?")) {
                             bool creatable = (bool) _jsonCreatableCallSite.Target(_jsonCreatableCallSite, json.Context, classClass);
                             if (creatable) {
                                 result = _jsonCreateCallSite.Target(_jsonCreateCallSite, json.Context, classClass, result);
