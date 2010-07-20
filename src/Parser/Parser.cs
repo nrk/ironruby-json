@@ -35,6 +35,8 @@ namespace IronRuby.JsonExt {
             InitializeLibrary(scope);
 
             _json = ParserEngine.InitializeState(this, source);
+            _json.Scope = scope;
+            _json.Context = scope.RubyContext;
 
             if (options.Count > 0) {
                 if (options.ContainsKey(_maxNesting)) {
@@ -77,9 +79,7 @@ namespace IronRuby.JsonExt {
             _chr = scope.RubyContext.CreateAsciiSymbol("chr");
         }
 
-        public Object Parse(RubyScope/*!*/ scope) {
-            _json.Scope = scope;
-            _json.Context = scope.RubyContext;
+        public Object Parse() {
             return ParserEngine.Parse(_json);
         }
 
