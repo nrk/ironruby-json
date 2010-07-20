@@ -106,17 +106,17 @@ namespace IronRuby.JsonExt {
         private static void LoadJSON__Ext__Generator__State_Instance(IronRuby.Builtins.RubyModule/*!*/ module) {
             DefineLibraryMethod(module, "array_nl", 0x11, 
                 0x00000000U, 
-                new Func<IronRuby.Runtime.RubyContext, IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.GetArrayNl)
+                new Func<IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.GetArrayNl)
             );
             
             DefineLibraryMethod(module, "array_nl=", 0x11, 
                 0x00000000U, 
-                new Action<IronRuby.Runtime.RubyContext, IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.SetArrayNl)
+                new Action<IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.SetArrayNl)
             );
             
             DefineLibraryMethod(module, "check_circular?", 0x11, 
                 0x00000000U, 
-                new Func<IronRuby.Runtime.RubyContext, IronRuby.JsonExt.GeneratorState, System.Boolean>(IronRuby.JsonExt.GeneratorStateOps.GetCheckCircular)
+                new Func<IronRuby.JsonExt.GeneratorState, System.Boolean>(IronRuby.JsonExt.GeneratorStateOps.GetCheckCircular)
             );
             
             DefineLibraryMethod(module, "configure", 0x11, 
@@ -131,12 +131,12 @@ namespace IronRuby.JsonExt {
             
             DefineLibraryMethod(module, "indent", 0x11, 
                 0x00000000U, 
-                new Func<IronRuby.Runtime.RubyContext, IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.GetIndent)
+                new Func<IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.GetIndent)
             );
             
             DefineLibraryMethod(module, "indent=", 0x11, 
                 0x00000000U, 
-                new Action<IronRuby.Runtime.RubyContext, IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.SetIndent)
+                new Action<IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.SetIndent)
             );
             
             DefineLibraryMethod(module, "initialize", 0x12, 
@@ -146,22 +146,22 @@ namespace IronRuby.JsonExt {
             
             DefineLibraryMethod(module, "max_nesting", 0x11, 
                 0x00000000U, 
-                new Func<IronRuby.Runtime.RubyContext, IronRuby.JsonExt.GeneratorState, System.Int32>(IronRuby.JsonExt.GeneratorStateOps.GetMaxNesting)
+                new Func<IronRuby.JsonExt.GeneratorState, System.Int32>(IronRuby.JsonExt.GeneratorStateOps.GetMaxNesting)
             );
             
             DefineLibraryMethod(module, "max_nesting=", 0x11, 
                 0x00000000U, 
-                new Action<IronRuby.Runtime.RubyContext, IronRuby.JsonExt.GeneratorState, System.Int32>(IronRuby.JsonExt.GeneratorStateOps.SetMaxNesting)
+                new Action<IronRuby.JsonExt.GeneratorState, System.Int32>(IronRuby.JsonExt.GeneratorStateOps.SetMaxNesting)
             );
             
             DefineLibraryMethod(module, "object_nl", 0x11, 
                 0x00000000U, 
-                new Func<IronRuby.Runtime.RubyContext, IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.GetObjectNl)
+                new Func<IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.GetObjectNl)
             );
             
             DefineLibraryMethod(module, "object_nl=", 0x11, 
                 0x00000000U, 
-                new Action<IronRuby.Runtime.RubyContext, IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.SetObjectNl)
+                new Action<IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.SetObjectNl)
             );
             
             DefineLibraryMethod(module, "remember", 0x11, 
@@ -176,22 +176,22 @@ namespace IronRuby.JsonExt {
             
             DefineLibraryMethod(module, "space", 0x11, 
                 0x00000000U, 
-                new Func<IronRuby.Runtime.RubyContext, IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.GetSpace)
+                new Func<IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.GetSpace)
             );
             
             DefineLibraryMethod(module, "space_before", 0x11, 
                 0x00000000U, 
-                new Func<IronRuby.Runtime.RubyContext, IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.GetSpaceBefore)
+                new Func<IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.GetSpaceBefore)
             );
             
             DefineLibraryMethod(module, "space_before=", 0x11, 
                 0x00000000U, 
-                new Action<IronRuby.Runtime.RubyContext, IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.SetSpaceBefore)
+                new Action<IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.SetSpaceBefore)
             );
             
             DefineLibraryMethod(module, "space=", 0x11, 
                 0x00000000U, 
-                new Action<IronRuby.Runtime.RubyContext, IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.SetSpace)
+                new Action<IronRuby.JsonExt.GeneratorState, IronRuby.Builtins.MutableString>(IronRuby.JsonExt.GeneratorStateOps.SetSpace)
             );
             
             DefineLibraryMethod(module, "to_h", 0x11, 
@@ -217,7 +217,7 @@ namespace IronRuby.JsonExt {
         private static void LoadJSON__Ext__Parser_Instance(IronRuby.Builtins.RubyModule/*!*/ module) {
             DefineLibraryMethod(module, "parse", 0x11, 
                 0x00000000U, 
-                new Func<IronRuby.Runtime.RespondToStorage, IronRuby.Runtime.UnaryOpStorage, IronRuby.Runtime.BinaryOpStorage, IronRuby.Runtime.RubyScope, IronRuby.JsonExt.Parser, System.Object>(IronRuby.JsonExt.ParserOps.Parse)
+                new Func<IronRuby.JsonExt.Parser, System.Object>(IronRuby.JsonExt.ParserOps.Parse)
             );
             
         }

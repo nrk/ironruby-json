@@ -20,9 +20,7 @@ namespace IronRuby.JsonExt {
         }
 
         [RubyMethod("parse")]
-        public static Object Parse(RespondToStorage/*!*/ respondToStorage, UnaryOpStorage/*!*/ unaryOpStorage,
-            BinaryOpStorage/*!*/ binaryOpStorage, RubyScope/*!*/ scope, Parser/*!*/ self) {
-
+        public static Object Parse(Parser/*!*/ self) {
             return self.Parse();
         }
     }

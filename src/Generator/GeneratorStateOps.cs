@@ -84,67 +84,67 @@ namespace IronRuby.JsonExt {
         }
 
         [RubyMethod("indent")]
-        public static MutableString GetIndent(RubyContext context, GeneratorState self) {
+        public static MutableString GetIndent(GeneratorState self) {
             return self.Indent;
         }
 
         [RubyMethod("indent=")]
-        public static void SetIndent(RubyContext context, GeneratorState self, MutableString value) {
+        public static void SetIndent(GeneratorState self, MutableString value) {
             self.Indent = value;
         }
 
         [RubyMethod("space")]
-        public static MutableString GetSpace(RubyContext context, GeneratorState self) {
+        public static MutableString GetSpace(GeneratorState self) {
             return self.Space;
         }
 
         [RubyMethod("space=")]
-        public static void SetSpace(RubyContext context, GeneratorState self, MutableString value) {
+        public static void SetSpace(GeneratorState self, MutableString value) {
             self.Space = value;
         }
 
         [RubyMethod("space_before")]
-        public static MutableString GetSpaceBefore(RubyContext context, GeneratorState self) {
+        public static MutableString GetSpaceBefore(GeneratorState self) {
             return self.SpaceBefore;
         }
 
         [RubyMethod("space_before=")]
-        public static void SetSpaceBefore(RubyContext context, GeneratorState self, MutableString value) {
+        public static void SetSpaceBefore(GeneratorState self, MutableString value) {
             self.SpaceBefore = value;
         }
 
         [RubyMethod("object_nl")]
-        public static MutableString GetObjectNl(RubyContext context, GeneratorState self) {
+        public static MutableString GetObjectNl(GeneratorState self) {
             return self.ObjectNl;
         }
 
         [RubyMethod("object_nl=")]
-        public static void SetObjectNl(RubyContext context, GeneratorState self, MutableString value) {
+        public static void SetObjectNl(GeneratorState self, MutableString value) {
             self.ObjectNl = value;
         }
 
         [RubyMethod("array_nl")]
-        public static MutableString GetArrayNl(RubyContext context, GeneratorState self) {
+        public static MutableString GetArrayNl(GeneratorState self) {
             return self.ObjectNl;
         }
 
         [RubyMethod("array_nl=")]
-        public static void SetArrayNl(RubyContext context, GeneratorState self, MutableString value) {
+        public static void SetArrayNl(GeneratorState self, MutableString value) {
             self.ArrayNl = value;
         }
 
         [RubyMethod("check_circular?")]
-        public static Boolean GetCheckCircular(RubyContext context, GeneratorState self) {
+        public static Boolean GetCheckCircular(GeneratorState self) {
             return self.CheckCircular;
         }
 
         [RubyMethod("max_nesting")]
-        public static Int32 GetMaxNesting(RubyContext context, GeneratorState self) {
+        public static Int32 GetMaxNesting(GeneratorState self) {
             return self.MaxNesting;
         }
 
         [RubyMethod("max_nesting=")]
-        public static void SetMaxNesting(RubyContext context, GeneratorState self, Int32 value) {
+        public static void SetMaxNesting(GeneratorState self, Int32 value) {
             self.MaxNesting = value;
         }
     }
