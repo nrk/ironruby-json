@@ -11,7 +11,7 @@ namespace IronRuby.JsonExt {
             Parser = parser;
             Scope = scope;
             OriginalSource = source;
-            Source = source;
+            Source = source.ConvertToString();
 
             CreateID = Helpers.GetCreateId(scope);
             AllowNaN = DEFAULT_ALLOW_NAN;
@@ -23,7 +23,7 @@ namespace IronRuby.JsonExt {
         public Parser Parser { get; private set; }
         public RubyScope Scope { get; private set; }
         public MutableString OriginalSource { get; private set; }
-        public MutableString Source { get; private set; }
+        public String Source { get; private set; }
 
         public Int32 Memo { get; set; }
         public Object CreateID { get; set; }
