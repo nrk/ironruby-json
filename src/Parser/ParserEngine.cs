@@ -28,7 +28,6 @@ namespace IronRuby.JsonExt {
          */
 
         private const Int32 EVIL = 0x666;
-        private const Int32 DEFAULT_MAX_NESTING = 19;
         private const String JSON_MINUS_INFINITY = "-Infinity";
         private const Double CONSTANT_NAN = Double.NaN;
         private const Double CONSTANT_INFINITY = Double.PositiveInfinity;
@@ -1290,20 +1289,6 @@ namespace IronRuby.JsonExt {
 
         #endregion
         
-        public static ParserEngineState InitializeState(Parser parser, MutableString source) {
-            ParserEngineState json = new ParserEngineState();
-
-            json.Parser = parser;
-            json.OriginalSource = source;
-            json.Source = source;
-            json.AllowNaN = true;
-            json.CurrentNesting = 0;
-            json.MaxNesting = DEFAULT_MAX_NESTING;
-            json.Memo = 0;
-
-            return json;
-        }
-
         public static Object Parse(ParserEngineState json) {
             int p, pe;
             int cs = EVIL;

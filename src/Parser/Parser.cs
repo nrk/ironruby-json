@@ -12,9 +12,6 @@ namespace IronRuby.JsonExt {
     public class Parser {
         #region fields
 
-        private const int JSON_MAX_NESTING = 19;
-        private const bool JSON_ALLOW_NAN = false;
-
         private static RubySymbol _maxNesting;
         private static RubySymbol _allowNan;
         private static RubySymbol _jsonCreatable;
@@ -34,35 +31,14 @@ namespace IronRuby.JsonExt {
         public Parser(RubyScope scope, MutableString source, Hash options) {
             InitializeLibrary(scope);
 
-            _json = ParserEngine.InitializeState(this, source);
-            _json.Scope = scope;
-
+            _json = new ParserEngineState(this, scope, source);
             if (options.Count > 0) {
                 if (options.ContainsKey(_maxNesting)) {
-                    object maxNesting = options[_maxNesting];
-                    if (maxNesting is int) {
-                        _json.MaxNesting = (int)maxNesting;
-                    }
-                    else {
-                        // TODO: verify the actual behaviour JSON::Parser when passing a 
-                        //       :max_nesting value different than false or nil.
-                        _json.MaxNesting = Int32.MaxValue;
-                    }
+                    _json.MaxNesting = options[_maxNesting] is int ? (int)options[_maxNesting] : 0;
                 }
-                else {
-                    _json.MaxNesting = JSON_MAX_NESTING;
-                }
-                _json.AllowNaN = options.ContainsKey(_allowNan) ? (bool)(options[_allowNan] ?? JSON_ALLOW_NAN) : JSON_ALLOW_NAN;
-
-                if (options.ContainsKey(_createAdditions)) {
-                    //TODO: check needed, create_id could be TrueClass, FalseClass, NilClass or String
-                    _json.CreateID = (bool)options[_createAdditions] ? Helpers.GetCreateId(scope) : null;
-                }
-            }
-            else {
-                _json.MaxNesting = JSON_MAX_NESTING;
-                _json.AllowNaN = JSON_ALLOW_NAN;
-                _json.CreateID = Helpers.GetCreateId(scope);
+                _json.AllowNaN = options.ContainsKey(_allowNan) ? (bool)options[_allowNan] : ParserEngineState.DEFAULT_ALLOW_NAN;
+                // TODO: check needed, create_id could be TrueClass, FalseClass, NilClass or String
+                _json.CreateID = options.ContainsKey(_createAdditions) && (bool)options[_createAdditions] ? Helpers.GetCreateId(scope) : null;
             }
         }
 
