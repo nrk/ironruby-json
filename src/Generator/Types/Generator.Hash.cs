@@ -11,6 +11,7 @@ namespace IronRuby.JsonExt {
             RubyContext context = toS.Context;
 
             if (state == null) {
+                MutableString json;
                 result = MutableString.CreateMutable(2 + Math.Max(self.Count * 12, 0), RubyEncoding.Default);
                 result.Append('{');
 
@@ -18,9 +19,16 @@ namespace IronRuby.JsonExt {
                     int i = 0;
                     foreach (DictionaryEntry kv in self) {
                         // TODO: added state and depth
-                        result.Append(Generator.ToJson(context, Protocols.ConvertToString(toS, kv.Key), null, 0));
+                        json = Generator.ToJson(context, Protocols.ConvertToString(toS, kv.Key), null, 0);
+                        result.Append(json);
+                        context.TaintObjectBy<Object>(result, json);
+
                         result.Append(':');
-                        result.Append(Generator.ToJson(context, kv.Value, null, 0));
+
+                        json = Generator.ToJson(context, kv.Value, null, 0);
+                        result.Append(json);
+                        context.TaintObjectBy<Object>(result, json);
+
                         if (++i < self.Count) {
                             result.Append(',');
                         }
@@ -57,11 +65,13 @@ namespace IronRuby.JsonExt {
             int subDepth = depth + 1;
 
             MutableString result = MutableString.CreateBinary(2 + self.Count * (12 + indent.Length + spaceBefore.Length + space.Length));
+            RubyContext context = toS.Context;
 
             result.Append((byte)'{');
             result.Append(objectNl);
 
             if (self.Count > 0) {
+                MutableString json;
                 int i = 0;
                 foreach (DictionaryEntry kv in self) {
                     if (i > 0) {
@@ -72,14 +82,17 @@ namespace IronRuby.JsonExt {
                         result.Append(indent);
                     }
 
-                    result.Append(Generator.ToJson(toS.Context, Protocols.ConvertToString(toS, kv.Key), state, subDepth));
+                    json = Generator.ToJson(context, Protocols.ConvertToString(toS, kv.Key), state, subDepth);
+                    result.Append(json);
+                    context.TaintObjectBy<Object>(result, json);
+
                     result.Append(spaceBefore);
                     result.Append((byte)':');
                     result.Append(space);
-                    // TODO: inherits flags?
 
-                    result.Append(Generator.ToJson(toS.Context, kv.Value, state, subDepth));
-                    // TODO: inherits flags?
+                    json = Generator.ToJson(context, kv.Value, state, subDepth);
+                    result.Append(json);
+                    context.TaintObjectBy<Object>(result, json);
 
                     if (++i < self.Count) {
                         result.Append(',');

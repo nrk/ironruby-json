@@ -44,11 +44,6 @@ namespace IronRuby.JsonExt {
             return InitializeGeneratorStateKey(context)[key];
         }
 
-        public static void InheritsFlags(RubyContext context, Object target, Object inheritsFrom) {
-            // TODO: need to FreezeObjectBy too?
-            context.TaintObjectBy<Object>(target, inheritsFrom);
-        }
-
         public static void ThrowCircularDataStructureException(String message, params Object[] args) {
             throw new CircularDatastructureException(String.Format(message, args));
         }

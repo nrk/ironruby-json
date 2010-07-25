@@ -11,14 +11,14 @@ namespace IronRuby.JsonExt {
 
             if (state == null) {
                 result = MutableString.CreateMutable(2 + Math.Max(self.Count * 4, 0), RubyEncoding.UTF8);
-                // TODO: inherits flags?
                 result.Append('[');
+                context.TaintObjectBy<Object>(result, self);
 
                 if (self.Count > 0) {
                     for (int i = 0; i < self.Count; i++) {
-                        result.Append(Generator.ToJson(context, self[i], null, 0));
-                        Helpers.InheritsFlags(context, result, self);
-                        // TODO: inherits flags?
+                        Object element = self[i];
+                        result.Append(Generator.ToJson(context, element, null, 0));
+                        context.TaintObjectBy<Object>(result, element);
                         if (i < self.Count - 1) {
                             result.Append(',');
                         }
@@ -31,7 +31,7 @@ namespace IronRuby.JsonExt {
                 result = Transform(context, self, state, depth.HasValue ? depth.Value : 0);
             }
 
-            // TODO: inherits flags?
+            context.TaintObjectBy<Object>(result, self);
             return result;
         }
 
@@ -41,14 +41,13 @@ namespace IronRuby.JsonExt {
             byte[] indentUnit = state.Indent.ToByteArray();
             byte[] shift = Helpers.Repeat(indentUnit, depth + 1);
 
-            // TODO: inherits flags?
-
             byte[] arrayNl = state.ArrayNl.ToByteArray();
             byte[] delim = new byte[1 + arrayNl.Length];
             delim[0] = (byte)',';
             Array.Copy(arrayNl, 0, delim, 1, arrayNl.Length);
 
             state.CheckMaxNesting(depth + 1);
+            context.TaintObjectBy<Object>(result, self);
 
             if (state.CheckCircular) {
                 state.Remember(context, self);
@@ -62,8 +61,7 @@ namespace IronRuby.JsonExt {
                         if (state.Seen(context, element)) {
                             Helpers.ThrowCircularDataStructureException("circular data structures not supported!");
                         }
-
-                        // TODO: inherits flags?
+                        context.TaintObjectBy<Object>(result, element);
 
                         if (i > 0) {
                             result.Append(delim);
@@ -91,7 +89,7 @@ namespace IronRuby.JsonExt {
                 if (self.Count > 0) {
                     for (int i = 0; i < self.Count; i++) {
                         Object element = self[i];
-                        // TODO: inherits flags?
+                        context.TaintObjectBy<Object>(result, element);
 
                         if (i > 0) {
                             result.Append(delim);
