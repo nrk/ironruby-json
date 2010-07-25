@@ -6,3 +6,9 @@ This is a port of Florian Frank's native json library for the MRI to IronRuby.
 Want to help or contribute? Drop me a mail to suppakilla@gmail.com
 
 NOTE: this is still a work in progress, see the TODO for more information
+
+== License
+
+Ruby License, see the COPYING file included in the source distribution. The
+Ruby License includes the GNU General Public License (GPL), Version 2, so see
+the file GPL as well.
