@@ -1,10 +1,11 @@
 ﻿using System;
 using IronRuby.Runtime;
+using IronRuby.Builtins;
 
 namespace IronRuby.JsonExt {
     public class ParserEngineState {
-        public Object vsource { get; set; }
-        public String source { get; set; }
+        public MutableString vsource { get; set; }
+        public MutableString source { get; set; }
         public Int32 len { get; set; }
         public Int32 memo { get; set; }
         public Object create_id { get; set; }

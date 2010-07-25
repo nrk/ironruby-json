@@ -82,7 +82,7 @@ namespace IronRuby.JsonExt {
             return ParserEngine.Parse(_json);
         }
 
-        public Object Source {
+        public MutableString Source {
             get { return _json.source; }
         }
     }

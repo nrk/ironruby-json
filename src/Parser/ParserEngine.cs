@@ -1295,7 +1295,7 @@ namespace IronRuby.JsonExt {
 
             json.Parser = parser;
             json.vsource = source;
-            json.source = source.ToString();
+            json.source = source;
 
             json.allow_nan = true;
             json.current_nesting = 0;
@@ -1319,7 +1319,7 @@ namespace IronRuby.JsonExt {
 
             #endregion
 
-            String source = json.source;
+            String source = json.source.ToString();
             p = 0;
             pe = p + json.len;
 
