@@ -46,33 +46,26 @@ namespace IronRuby.JsonExt {
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "indent"))) {
                 self._indent = configuration[Helpers.GetGeneratorStateKey(context, "indent")] as MutableString;
             }
-
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "space"))) {
                 self._space = configuration[Helpers.GetGeneratorStateKey(context, "space")] as MutableString;
             }
-
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "space_before"))) {
                 self._spaceBefore = configuration[Helpers.GetGeneratorStateKey(context, "space_before")] as MutableString;
             }
-
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "array_nl"))) {
                 self._arrayNl = configuration[Helpers.GetGeneratorStateKey(context, "array_nl")] as MutableString;
             }
-
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "object_nl"))) {
                 self._objectNl = configuration[Helpers.GetGeneratorStateKey(context, "object_nl")] as MutableString;
             }
-
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "check_circular"))) {
                 Object cc = configuration[Helpers.GetGeneratorStateKey(context, "check_circular")];
                 self._checkCircular = cc is bool ? (bool)cc : false;
             }
-
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "max_nesting"))) {
                 Object mn = configuration[Helpers.GetGeneratorStateKey(context, "max_nesting")];
                 self._maxNesting = (mn is int) ? (int)mn : 0;
             }
-
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "allow_nan"))) {
                 Object an = configuration[Helpers.GetGeneratorStateKey(context, "allow_nan")];
                 self._allowNaN = an is bool ? (bool)an : false;
@@ -105,8 +98,7 @@ namespace IronRuby.JsonExt {
         public bool Forget(RubyContext context, Object obj) {
             return _seen.Remove(RubyUtils.GetObjectId(context, obj));
         }
-
-
+        
         public bool Seen(RubyContext context, Object obj) {
             return _seen.Contains(RubyUtils.GetObjectId(context, obj));
         }

@@ -10,7 +10,6 @@ namespace IronRuby.JsonExt {
             MutableString result = MutableString.CreateMutable(self.Length + 2, RubyEncoding.UTF8);
             char[] chars = Encoding.UTF8.GetChars(self.ToByteArray());
             byte[] escapeSequence = new byte[] { (byte)'\\', 0 };
-
             result.Append('"');
             foreach (char c in chars) {
                 switch (c) {
@@ -55,25 +54,23 @@ namespace IronRuby.JsonExt {
         }
 
         public static Hash ToJsonRawObject(RubyScope scope, MutableString self) {
-            RubyContext context = scope.RubyContext;
-            MutableString createId = Helpers.GetCreateId(scope);
-
             byte[] selfBuffer = self.ToByteArray();
-            RubyArray array = new RubyArray(selfBuffer.Length);
+            var array = new RubyArray(selfBuffer.Length);
             foreach (byte b in selfBuffer) {
                 array.Add(b & 0xFF);
             }
 
-            Hash result = new Hash(context);
+            var context = scope.RubyContext;
+            var result = new Hash(context);
+            var createId = Helpers.GetCreateId(scope);
+
             result.Add(createId, MutableString.Create(context.GetClassName(self), RubyEncoding.Binary));
             result.Add(MutableString.CreateAscii("raw"), array);
-
             return result;
         }
 
         public static MutableString ToJsonRaw(RubyScope scope, MutableString self) {
-            Hash hash = ToJsonRawObject(scope, self);
-            return ToJson(scope.RubyContext, hash, null, 0);
+            return ToJson(scope.RubyContext, ToJsonRawObject(scope, self), null, 0);
         }
     }
 

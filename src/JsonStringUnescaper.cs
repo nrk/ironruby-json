@@ -65,7 +65,6 @@ namespace IronRuby.JsonExt {
                 case 'u':
                     Ensure(4);
                     char codePoint = ReadUnicodeCodepoint();
-
                     if (Char.IsHighSurrogate(codePoint)) {
                         HandleLowSurrogate(codePoint, output);
                     }
@@ -76,7 +75,6 @@ namespace IronRuby.JsonExt {
                     else {
                         WriteUTF8Character((int)codePoint, output);
                     }
-
                     break;
                 default: 
                     // '\\', '"', '/'...

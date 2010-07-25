@@ -12,10 +12,6 @@ using Microsoft.Scripting.Runtime;
 
 namespace IronRuby.JsonExt {
     public static partial class Helpers {
-        public static MutableString CreateMutableString(String value, int len) {
-            return MutableString.Create(value, RubyEncoding.Binary);
-        }
-
         public static Object ToInteger(String str) {
             return IronRuby.Compiler.Tokenizer.ParseInteger(str, 10).ToObject();
         }

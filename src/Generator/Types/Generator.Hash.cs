@@ -13,8 +13,8 @@ namespace IronRuby.JsonExt {
             if (state == null) {
                 MutableString json;
                 result = MutableString.CreateMutable(2 + Math.Max(self.Count * 12, 0), RubyEncoding.Default);
-                result.Append('{');
 
+                result.Append('{');
                 if (self.Count > 0) {
                     int i = 0;
                     foreach (DictionaryEntry kv in self) {
@@ -34,17 +34,14 @@ namespace IronRuby.JsonExt {
                         }
                     }
                 }
-
                 result.Append('}');
             }
             else {
                 GeneratorState.Ensure(state);
-
                 if (state.CheckCircular) {
                     if (state.Seen(context, self)) {
                         Helpers.ThrowCircularDataStructureException("circular data structures not supported!");
                     }
-
                     state.Remember(context, self);
                     result = Transform(toS, self, state, depth.HasValue ? depth.Value : 0);
                     state.Forget(context, self);
@@ -69,7 +66,6 @@ namespace IronRuby.JsonExt {
 
             result.Append((byte)'{');
             result.Append(objectNl);
-
             if (self.Count > 0) {
                 MutableString json;
                 int i = 0;
@@ -77,7 +73,6 @@ namespace IronRuby.JsonExt {
                     if (i > 0) {
                         result.Append(objectNl);
                     }
-
                     if (objectNl.Length != 0) {
                         result.Append(indent);
                     }
@@ -108,9 +103,7 @@ namespace IronRuby.JsonExt {
                     }
                 }
             }
-
             result.Append((byte)'}');
-
             return result;
         }
     }

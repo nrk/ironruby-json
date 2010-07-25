@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using IronRuby.Builtins;
 using IronRuby.Runtime;
@@ -6,7 +7,7 @@ using IronRuby.Runtime;
 namespace IronRuby.JsonExt {
     public static partial class Generator {
         public static MutableString ToJson(Int32 self) {
-            return MutableString.CreateAscii(self.ToString(System.Globalization.NumberFormatInfo.InvariantInfo));
+            return MutableString.CreateAscii(self.ToString(NumberFormatInfo.InvariantInfo));
         }
     }
 

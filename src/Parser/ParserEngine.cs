@@ -1116,7 +1116,6 @@ namespace IronRuby.JsonExt {
 
         static int? JSON_parse_string(ParserEngineState json, ref int p, ref int pe, ref Object result) {
             int cs = EVIL;
-
             result = MutableString.CreateEmpty();
 
             #region ** ragel generated code **
@@ -1296,8 +1295,8 @@ namespace IronRuby.JsonExt {
         
         public static Object Parse(ParserEngineState json) {
             int p, pe;
-            int cs = EVIL;
             Object result = null;
+            int cs = EVIL;
 
             #region ** ragel generated code **
 
@@ -1307,7 +1306,7 @@ namespace IronRuby.JsonExt {
 
             #endregion
 
-            String source = json.OriginalSource.ToString();
+            var source = json.OriginalSource.ToString();
             p = 0;
             pe = p + json.Length;
 
@@ -1419,7 +1418,6 @@ namespace IronRuby.JsonExt {
             else {
                 Helpers.ThrowParserException("unexpected token at '{0}'", Helpers.GetMessageForException(source, p, pe));
             }
-
             return null;
         }
     }

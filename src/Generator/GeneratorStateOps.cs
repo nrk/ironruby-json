@@ -27,7 +27,6 @@ namespace IronRuby.JsonExt {
             if (configuration != null) {
                 GeneratorState.Configure(context, self, configuration);
             }
-
             return self;
         }
 
@@ -41,7 +40,6 @@ namespace IronRuby.JsonExt {
         public static Hash ToHash(RubyContext/*!*/ context, GeneratorState/*!*/ self) {
             // TODO: vOpts.respondsTo("to_hash")
             Hash configurationHash = new Hash(context);
-
             configurationHash.Add(Helpers.GetGeneratorStateKey(context, "indent"), self.Indent);
             configurationHash.Add(Helpers.GetGeneratorStateKey(context, "space"), self.Space);
             configurationHash.Add(Helpers.GetGeneratorStateKey(context, "space_before"), self.SpaceBefore);
@@ -50,7 +48,6 @@ namespace IronRuby.JsonExt {
             configurationHash.Add(Helpers.GetGeneratorStateKey(context, "check_circular"), self.CheckCircular);
             configurationHash.Add(Helpers.GetGeneratorStateKey(context, "allow_nan"), self.AllowNaN);
             configurationHash.Add(Helpers.GetGeneratorStateKey(context, "max_nesting"), self.MaxNesting);
-
             return configurationHash;
         }
 
@@ -75,11 +72,9 @@ namespace IronRuby.JsonExt {
             if (source is GeneratorState) {
                 return source as GeneratorState;
             }
-
             if (source is Hash) {
                 return Reinitialize(context, new GeneratorState(), source as Hash);
             }
-
             return Reinitialize(context, new GeneratorState(), null);
         }
 

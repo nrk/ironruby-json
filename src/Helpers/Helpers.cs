@@ -11,10 +11,6 @@ using Microsoft.Scripting.Utils;
 using Microsoft.Scripting.Runtime;
 
 namespace IronRuby.JsonExt {
-    using CreateIdCallSite = CallSite<Func<CallSite, RubyContext, Object, Object>>;
-    using ExceptionCreateCallSite = CallSite<Func<CallSite, RubyContext, Object, MutableString, Exception>>;
-    using SetBacktraceStorage = CallSiteStorage<Action<CallSite, Exception, RubyArray>>;
-
     public static partial class Helpers {
         private static readonly byte[] HEX = new byte[] {
             (byte)'0', (byte)'1', (byte)'2', (byte)'3', (byte)'4', (byte)'5', (byte)'6', (byte)'7',
