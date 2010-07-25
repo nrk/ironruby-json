@@ -41,28 +41,28 @@ namespace IronRuby.JsonExt {
                 if (options.ContainsKey(_maxNesting)) {
                     object maxNesting = options[_maxNesting];
                     if (maxNesting is int) {
-                        _json.max_nesting = (int)maxNesting;
+                        _json.MaxNesting = (int)maxNesting;
                     }
                     else {
                         // TODO: verify the actual behaviour JSON::Parser when passing a 
                         //       :max_nesting value different than false or nil.
-                        _json.max_nesting = Int32.MaxValue;
+                        _json.MaxNesting = Int32.MaxValue;
                     }
                 }
                 else {
-                    _json.max_nesting = JSON_MAX_NESTING;
+                    _json.MaxNesting = JSON_MAX_NESTING;
                 }
-                _json.allow_nan = options.ContainsKey(_allowNan) ? (bool)(options[_allowNan] ?? JSON_ALLOW_NAN) : JSON_ALLOW_NAN;
+                _json.AllowNaN = options.ContainsKey(_allowNan) ? (bool)(options[_allowNan] ?? JSON_ALLOW_NAN) : JSON_ALLOW_NAN;
 
                 if (options.ContainsKey(_createAdditions)) {
                     //TODO: check needed, create_id could be TrueClass, FalseClass, NilClass or String
-                    _json.create_id = (bool)options[_createAdditions] ? Helpers.GetCreateId(scope) : null;
+                    _json.CreateID = (bool)options[_createAdditions] ? Helpers.GetCreateId(scope) : null;
                 }
             }
             else {
-                _json.max_nesting = JSON_MAX_NESTING;
-                _json.allow_nan = JSON_ALLOW_NAN;
-                _json.create_id = Helpers.GetCreateId(scope);
+                _json.MaxNesting = JSON_MAX_NESTING;
+                _json.AllowNaN = JSON_ALLOW_NAN;
+                _json.CreateID = Helpers.GetCreateId(scope);
             }
         }
 
@@ -83,7 +83,7 @@ namespace IronRuby.JsonExt {
         }
 
         public MutableString Source {
-            get { return _json.source; }
+            get { return _json.OriginalSource; }
         }
     }
 }

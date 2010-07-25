@@ -125,8 +125,8 @@ namespace IronRuby.JsonExt {
             int cs = EVIL;
             Object last_name = null;
 
-            if (json.max_nesting > 0 && json.current_nesting > json.max_nesting) {
-                Helpers.ThrowNestingException("nesting of {0:d} is to deep", json.current_nesting);
+            if (json.MaxNesting > 0 && json.CurrentNesting > json.MaxNesting) {
+                Helpers.ThrowNestingException("nesting of {0:d} is to deep", json.CurrentNesting);
             }
 
             result = new Hash(json.Context);
@@ -242,8 +242,8 @@ namespace IronRuby.JsonExt {
             #endregion
 
             if (cs >= JSON_object_first_final) {
-                if (json.create_id != null && Helpers.IsJsonClass(result as Hash)) {
-                    Object classNameT = (result as Hash)[json.create_id];
+                if (json.CreateID != null && Helpers.IsJsonClass(result as Hash)) {
+                    Object classNameT = (result as Hash)[json.CreateID];
                     if (classNameT != null) {
                         RubyModule classClass;
                         String className = (classNameT as MutableString).ToString();
@@ -441,7 +441,7 @@ namespace IronRuby.JsonExt {
                             }
                             break;
                         case 3: {
-                                if (json.allow_nan) {
+                                if (json.AllowNaN) {
                                     result = CONSTANT_NAN;
                                 }
                                 else {
@@ -450,7 +450,7 @@ namespace IronRuby.JsonExt {
                             }
                             break;
                         case 4: {
-                                if (json.allow_nan) {
+                                if (json.AllowNaN) {
                                     result = CONSTANT_INFINITY;
                                 }
                                 else {
@@ -466,7 +466,7 @@ namespace IronRuby.JsonExt {
                         case 6: {
                                 int? np;
                                 if (pe > p + 9 && String.CompareOrdinal(JSON_MINUS_INFINITY, 0, source, p, 9) == 0) {
-                                    if (json.allow_nan) {
+                                    if (json.AllowNaN) {
                                         result = CONSTANT_MINUS_INFINITY; { p = ((p + 10)) - 1; }
                                         p--; { p++; if (true) goto _out; }
                                     }
@@ -483,17 +483,17 @@ namespace IronRuby.JsonExt {
                             break;
                         case 7: {
                                 int? np;
-                                json.current_nesting++;
+                                json.CurrentNesting++;
                                 np = JSON_parse_array(json, source, ref p, ref pe, ref result);
-                                json.current_nesting--;
+                                json.CurrentNesting--;
                                 if (!np.HasValue) { p--; { p++; if (true) goto _out; } } else { p = ((np.Value)) - 1; }
                             }
                             break;
                         case 8: {
                                 int? np;
-                                json.current_nesting++;
+                                json.CurrentNesting++;
                                 np = JSON_parse_object(json, source, ref p, ref pe, ref result);
-                                json.current_nesting--;
+                                json.CurrentNesting--;
                                 if (!np.HasValue) { p--; { p++; if (true) goto _out; } } else { p = ((np.Value)) - 1; }
                             }
                             break;
@@ -577,7 +577,7 @@ namespace IronRuby.JsonExt {
             }
             #endregion
 
-            json.memo = p;
+            json.Memo = p;
 
             #region ** ragel generated code **
             {
@@ -669,8 +669,8 @@ namespace IronRuby.JsonExt {
             #endregion
 
             if (cs >= JSON_integer_first_final) {
-                int len = p - json.memo;
-                result = Helpers.ToInteger(source.Substring(json.memo, len));
+                int len = p - json.Memo;
+                result = Helpers.ToInteger(source.Substring(json.Memo, len));
                 return p + 1;
             }
             else {
@@ -749,7 +749,7 @@ namespace IronRuby.JsonExt {
 
             #endregion
 
-            json.memo = p;
+            json.Memo = p;
 
             #region ** ragel generated code **
 
@@ -842,12 +842,12 @@ namespace IronRuby.JsonExt {
             #endregion
 
             if (cs >= JSON_float_first_final) {
-                int len = p - json.memo;
-                result = Helpers.ToFloat(source.Substring(json.memo, len));
+                int len = p - json.Memo;
+                result = Helpers.ToFloat(source.Substring(json.Memo, len));
                 return p + 1;
             }
             else {
-                p = json.memo;
+                p = json.Memo;
                 return null;
             }
         }
@@ -928,8 +928,8 @@ namespace IronRuby.JsonExt {
         static int? JSON_parse_array(ParserEngineState json, String source, ref int p, ref int pe, ref Object result) {
             int cs = EVIL;
 
-            if (json.max_nesting > 0 && json.current_nesting > json.max_nesting) {
-                Helpers.ThrowNestingException("nesting of {0:d} is to deep", json.current_nesting);
+            if (json.MaxNesting > 0 && json.CurrentNesting > json.MaxNesting) {
+                Helpers.ThrowNestingException("nesting of {0:d} is to deep", json.CurrentNesting);
             }
             result = new RubyArray();
 
@@ -1124,7 +1124,7 @@ namespace IronRuby.JsonExt {
 
             #endregion
 
-            json.memo = p;
+            json.Memo = p;
 
             #region ** ragel generated code **
 
@@ -1200,9 +1200,9 @@ namespace IronRuby.JsonExt {
                 while (_nacts-- > 0) {
                     switch (_JSON_string_actions[_acts++]) {
                         case 0: {
-                                int curmemo = json.memo + 1;
+                                int curmemo = json.Memo + 1;
                                 result = UnescapeJsonString(source, ref curmemo, ref p);
-                                json.memo = curmemo;
+                                json.Memo = curmemo;
                                 if (result == null) { p--; { p++; if (true) goto _out; } } else { p = ((p + 1)) - 1; }
                             }
                             break;
@@ -1294,14 +1294,12 @@ namespace IronRuby.JsonExt {
             ParserEngineState json = new ParserEngineState();
 
             json.Parser = parser;
-            json.vsource = source;
-            json.source = source;
-
-            json.allow_nan = true;
-            json.current_nesting = 0;
-            json.max_nesting = DEFAULT_MAX_NESTING;
-            json.memo = 0;
-            json.len = json.source.Length;
+            json.OriginalSource = source;
+            json.Source = source;
+            json.AllowNaN = true;
+            json.CurrentNesting = 0;
+            json.MaxNesting = DEFAULT_MAX_NESTING;
+            json.Memo = 0;
 
             return json;
         }
@@ -1319,9 +1317,9 @@ namespace IronRuby.JsonExt {
 
             #endregion
 
-            String source = json.source.ToString();
+            String source = json.OriginalSource.ToString();
             p = 0;
-            pe = p + json.len;
+            pe = p + json.Length;
 
             #region ** ragel generated code **
 
@@ -1398,14 +1396,14 @@ namespace IronRuby.JsonExt {
                     switch (_JSON_actions[_acts++]) {
                         case 0: {
                                 int? np;
-                                json.current_nesting = 1;
+                                json.CurrentNesting = 1;
                                 np = JSON_parse_object(json, source, ref p, ref pe, ref result);
                                 if (!np.HasValue) { p--; { p++; if (true) goto _out; } } else { p = ((np.Value)) - 1; }
                             }
                             break;
                         case 1: {
                                 int? np;
-                                json.current_nesting = 1;
+                                json.CurrentNesting = 1;
                                 np = JSON_parse_array(json, source, ref p, ref pe, ref result);
                                 if (!np.HasValue) { p--; { p++; if (true) goto _out; } } else { p = ((np.Value)) - 1; }
                             }
