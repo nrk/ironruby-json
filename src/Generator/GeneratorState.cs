@@ -15,60 +15,51 @@ namespace IronRuby.JsonExt {
         #region fields 
 
         public const Int32 DEFAULT_MAX_NESTING = 19;
-
-        private MutableString _indent;
-        private MutableString _space;
-        private MutableString _spaceBefore;
-        private MutableString _objectNl;
-        private MutableString _arrayNl;
-
         private List<long> _seen;
-        private bool _checkCircular;
-        private bool _allowNaN;
-        private int _maxNesting;
 
         #endregion
 
         public GeneratorState() {
-            _indent = MutableString.CreateEmpty();
-            _space = MutableString.CreateEmpty();
-            _spaceBefore = MutableString.CreateEmpty();
-            _objectNl = MutableString.CreateEmpty();
-            _arrayNl = MutableString.CreateEmpty();
-
             _seen = new List<long>();
-            _checkCircular = true;
-            _allowNaN = false;
-            _maxNesting = DEFAULT_MAX_NESTING;
+
+            Indent = MutableString.CreateEmpty();
+            Space = MutableString.CreateEmpty();
+            SpaceBefore = MutableString.CreateEmpty();
+            ObjectNl = MutableString.CreateEmpty();
+            ArrayNl = MutableString.CreateEmpty();
+
+            CheckCircular = true;
+            AllowNaN = false;
+            MaxNesting = DEFAULT_MAX_NESTING;
         }
 
         public static void Configure(RubyContext/*!*/ context, GeneratorState/*!*/ self, Hash/*!*/ configuration) {
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "indent"))) {
-                self._indent = configuration[Helpers.GetGeneratorStateKey(context, "indent")] as MutableString;
+                self.Indent = configuration[Helpers.GetGeneratorStateKey(context, "indent")] as MutableString;
             }
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "space"))) {
-                self._space = configuration[Helpers.GetGeneratorStateKey(context, "space")] as MutableString;
+                self.Space = configuration[Helpers.GetGeneratorStateKey(context, "space")] as MutableString;
             }
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "space_before"))) {
-                self._spaceBefore = configuration[Helpers.GetGeneratorStateKey(context, "space_before")] as MutableString;
+                self.SpaceBefore = configuration[Helpers.GetGeneratorStateKey(context, "space_before")] as MutableString;
             }
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "array_nl"))) {
-                self._arrayNl = configuration[Helpers.GetGeneratorStateKey(context, "array_nl")] as MutableString;
+                self.ArrayNl = configuration[Helpers.GetGeneratorStateKey(context, "array_nl")] as MutableString;
             }
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "object_nl"))) {
-                self._objectNl = configuration[Helpers.GetGeneratorStateKey(context, "object_nl")] as MutableString;
+                self.ObjectNl = configuration[Helpers.GetGeneratorStateKey(context, "object_nl")] as MutableString;
             }
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "check_circular"))) {
                 Object cc = configuration[Helpers.GetGeneratorStateKey(context, "check_circular")];
-                self._checkCircular = cc is bool ? (bool)cc : false;
+                self.CheckCircular = cc is bool ? (bool)cc : false;
             }
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "max_nesting"))) {
                 Object mn = configuration[Helpers.GetGeneratorStateKey(context, "max_nesting")];
-                self._maxNesting = (mn is int) ? (int)mn : 0;
+                self.MaxNesting = (mn is int) ? (int)mn : 0;
             }
             if (configuration.ContainsKey(Helpers.GetGeneratorStateKey(context, "allow_nan"))) {
                 Object an = configuration[Helpers.GetGeneratorStateKey(context, "allow_nan")];
-                self._allowNaN = an is bool ? (bool)an : false;
+                self.AllowNaN = an is bool ? (bool)an : false;
             }
         }
 
@@ -83,7 +74,7 @@ namespace IronRuby.JsonExt {
         }
 
         public void CheckMaxNesting(int depth) {
-            if (_maxNesting != 0 && depth > _maxNesting) {
+            if (MaxNesting != 0 && depth > MaxNesting) {
                 Helpers.ThrowNestingException("nesting of {0:d} is to deep", depth);
             }
         }
@@ -103,44 +94,20 @@ namespace IronRuby.JsonExt {
             return _seen.Contains(RubyUtils.GetObjectId(context, obj));
         }
         
-        public MutableString Indent {
-            get { return _indent; }
-            set { _indent = value; }
-        }
+        public MutableString Indent { get; set; }
 
-        public MutableString Space {
-            get { return _space; }
-            set { _space = value; }
-        }
+        public MutableString Space { get; set; }
 
-        public MutableString SpaceBefore {
-            get { return _spaceBefore; }
-            set { _spaceBefore = value; }
-        }
+        public MutableString SpaceBefore { get; set; }
 
-        public MutableString ObjectNl {
-            get { return _objectNl; }
-            set { _objectNl = value; }
-        }
+        public MutableString ObjectNl { get; set; }
 
-        public MutableString ArrayNl {
-            get { return _arrayNl; }
-            set { _arrayNl = value; }
-        }
+        public MutableString ArrayNl { get; set; }
 
-        public Boolean CheckCircular {
-            get { return _checkCircular; }
-            set { _checkCircular = value; }
-        }
+        public Boolean CheckCircular { get; set; }
 
-        public Boolean AllowNaN {
-            get { return _allowNaN; }
-            set { _allowNaN = value; }
-        }
+        public Boolean AllowNaN { get; set; }
 
-        public Int32 MaxNesting {
-            get { return _maxNesting; }
-            set { _maxNesting = value; }
-        }
+        public Int32 MaxNesting { get; set; }
     }
 }
