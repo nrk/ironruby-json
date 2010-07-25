@@ -45,21 +45,20 @@ module JSON
     # Set the module _generator_ to be used by JSON.
     def generator=(generator) # :nodoc:
       @generator = generator
-=begin
-      # NOTE: this is not needed with IronRuby
 
-      generator_methods = generator::GeneratorMethods
-      for const in generator_methods.constants
-        klass = deep_const_get(const)
-        modul = generator_methods.const_get(const)
-        klass.class_eval do
-          instance_methods(false).each do |m|
-            m.to_s == 'to_json' and remove_method m
+      unless generator.name == 'JSON::Ext::Generator' && RUBY_ENGINE == 'ironruby'
+        generator_methods = generator::GeneratorMethods
+        for const in generator_methods.constants
+          klass = deep_const_get(const)
+          modul = generator_methods.const_get(const)
+          klass.class_eval do
+            instance_methods(false).each do |m|
+              m.to_s == 'to_json' and remove_method m
+            end
+            include modul
           end
-          include modul
         end
       end
-=end
       self.state = generator::State
       const_set :State, self.state
     end
